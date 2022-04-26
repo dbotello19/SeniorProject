@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senior_project/Login_Page.dart';
+import 'package:senior_project/SelectCurrencyPage.dart';
 import 'AccountScreen.dart';
 import 'Login_Page.dart';
 
@@ -14,7 +15,7 @@ class _NavigationScreen extends State<NavigationScreen> {
   final screens = [
     AccountScreen(),
     AccountScreen(),
-    AccountScreen(),
+    SelectCurrencyPage(),
     LoginPage(),
   ];
   @override

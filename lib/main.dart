@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:senior_project/AccountScreen.dart';
+import 'package:senior_project/ConvertPage.dart';
 import 'package:senior_project/NewAccountPage.dart';
-
+import 'package:senior_project/SelectCurrencyPage.dart';
 import 'Login_Page.dart';
 
 void main() {
