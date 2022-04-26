@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:senior_project/Login_Page.dart';
 
 
 class NewAccountPage extends StatefulWidget{
@@ -13,6 +14,12 @@ class _NewAccountPage extends State<NewAccountPage> {
   TextEditingController emailEditingController = TextEditingController();
   TextEditingController passwordEditingController = TextEditingController();
   TextEditingController confirmpasswordEditingController = TextEditingController();
+
+  navigateToLoginPage(){
+    Navigator.pushReplacement
+      (context, MaterialPageRoute(builder: (context) => LoginPage()));
+  }
+
   @override
   Widget build(BuildContext context){
 
@@ -100,6 +107,12 @@ class _NewAccountPage extends State<NewAccountPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
+        leading: IconButton(
+          color: Color(0xff4C748B),
+          icon: Icon(Icons.arrow_back_ios),
+          onPressed: (){
+            navigateToLoginPage();
+          },),
         title: Text('Dollaire',
         textAlign: TextAlign.center,
         style: TextStyle(
