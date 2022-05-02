@@ -8,6 +8,7 @@ class NewAccountPage extends StatefulWidget {
 }
 
 class _NewAccountPage extends State<NewAccountPage> {
+
   TextEditingController firstNameEditingController = TextEditingController();
   TextEditingController lastnameEditingController = TextEditingController();
   TextEditingController emailEditingController = TextEditingController();
@@ -20,12 +21,14 @@ class _NewAccountPage extends State<NewAccountPage> {
   var db = new Mysql();
   TextEditingController confirmpasswordEditingController = TextEditingController();
 
+
   navigateToLoginPage(){
     Navigator.pushReplacement
       (context, MaterialPageRoute(builder: (context) => LoginPage()));
   }
-
   @override
+  
+  
   Widget build(BuildContext context){
 
   void _insertDb() {
@@ -138,6 +141,8 @@ class _NewAccountPage extends State<NewAccountPage> {
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
     );
 
+  //insertCustomer('david', 'botello', 123456789, 'davidbotello19.db@gmail.com', 'username', 'password', '12344567', '4231647', '0');
+
     final confirmpassword = TextFormField(
       autofocus: false,
       controller: confirmpasswordEditingController,
@@ -221,6 +226,13 @@ class _NewAccountPage extends State<NewAccountPage> {
           ),
         ),
       ),
-    );
+    floatingActionButton: FloatingActionButton(
+        onPressed: _getCustomer,
+        tooltip: 'Increment',
+        child: Icon(Icons.add),
+    ),
+  );
+
+
   }
 }

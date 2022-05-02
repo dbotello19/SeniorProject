@@ -5,6 +5,11 @@ import 'package:senior_project/NewAccountPage.dart';
 import 'package:senior_project/SelectCurrencyPage.dart';
 import 'package:senior_project/models/mysql.dart';
 import 'Login_Page.dart';
+import 'package:flutter/material.dart';
+import 'package:encrypt/encrypt.dart' as encrypt;
+
+import 'AESencryption.dart';
+
 
 void main() {
   runApp(MyApp());

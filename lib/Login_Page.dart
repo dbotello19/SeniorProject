@@ -33,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
         backgroundColor: Colors.green,
         title: Text('Dollaire',
         textAlign: TextAlign.center,
-        style: TextStyle(
+        style: TextStyle( 
           fontSize: 20,
           color: Colors.white,
           ),
@@ -126,3 +126,8 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 }
+
+
+
+
+
