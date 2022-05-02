@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'AccountScreen.dart';
+import 'NewAccountPage.dart';
+import 'NavigationScreen.dart';
 
 
 class LoginPage extends StatefulWidget{
@@ -13,6 +16,16 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
   bool match = false;
+  navigateToNavigationScreen(){
+    Navigator.pushReplacement
+      (context, MaterialPageRoute(builder: (context) => NavigationScreen()));
+  }
+
+  navigateToNewAccountPage(){
+    Navigator.pushReplacement
+      (context, MaterialPageRoute(builder: (context) => NewAccountPage()));
+  }
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -73,7 +86,11 @@ class _LoginPageState extends State<LoginPage> {
             Text("Don't have an Account? ",
             style: TextStyle(color: Colors.red),),
             GestureDetector(
-              onTap:(){},
+              onTap:(){
+                setState(() {
+                  navigateToNewAccountPage();
+                });
+              },
               child:
               Text("Sign Up", style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),),
                 )
@@ -85,14 +102,10 @@ class _LoginPageState extends State<LoginPage> {
               color: Colors.lightBlue,
               onPressed: (){
                 setState(() {
-                  if(username == "Oscar" && password == "123")
-                  {
-                    match = true;
-                  }
-                  else
-                  {
-                    match = false;
-                  }
+                 if(username != "" && password != "")
+                 {
+                  navigateToNavigationScreen();
+                 }
                 });
               }
             ),
