@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+//import 'package:mysql1/mysql1.dart';
+import 'package:senior_project/mysql.dart';
 
 class NewAccountPage extends StatefulWidget{
   @override
@@ -8,12 +9,52 @@ class NewAccountPage extends StatefulWidget{
 
 class _NewAccountPage extends State<NewAccountPage> {
 
+  var db = new Mysql();
+  String sql = '';
+  String mail = '';
+
+  void _getCustomer() async {
+    await db.getConnection().then((conn) async {
+      String sql = 'SELECT * FROM Customers';
+
+       await conn.query(sql).then((results) {
+        for(var row in results){
+          setState(() {
+            mail = row[0];
+          });
+        }
+      });
+      conn.close();
+    });
+  }
+/*
+  void insertCustomer() {
+    db.getConnection().then((conn) {
+
+      String sql = "INSERT INTO Customers (First_name, Last_name, SSN, Email, Username, Password, Account_number, Routing_number, Money) VALUES ('david', 'botello', 123456789, 'davidbotello19.db@gmail.com', 'username', 'password', 12344567, 4231647, 0);";
+      
+      conn.query(sql).then((results) {
+        for(var row in results){
+          setState(() {
+
+          });
+        }
+      });
+
+      conn.close();
+    });
+  }*/
+
+
   TextEditingController firstNameEditingController = TextEditingController();
   TextEditingController secondNameEditingController = TextEditingController();
   TextEditingController emailEditingController = TextEditingController();
   TextEditingController passwordEditingController = TextEditingController();
   TextEditingController confirmpasswordEditingController = TextEditingController();
+
   @override
+  
+  
   Widget build(BuildContext context){
 
     final firstname = TextFormField(
@@ -80,6 +121,8 @@ class _NewAccountPage extends State<NewAccountPage> {
       ),
     );
 
+  //insertCustomer('david', 'botello', 123456789, 'davidbotello19.db@gmail.com', 'username', 'password', '12344567', '4231647', '0');
+
     final confirmpassword = TextFormField(
       autofocus: false,
       controller: confirmpasswordEditingController,
@@ -141,6 +184,13 @@ class _NewAccountPage extends State<NewAccountPage> {
           ),
         ),
       ),
-    );
+    floatingActionButton: FloatingActionButton(
+        onPressed: _getCustomer,
+        tooltip: 'Increment',
+        child: Icon(Icons.add),
+    ),
+  );
+
+
   }
  }
