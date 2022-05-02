@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senior_project/models/mysql.dart';
+import 'package:senior_project/Login_Page.dart';
 
 class NewAccountPage extends StatefulWidget {
   @override
@@ -17,6 +18,15 @@ class _NewAccountPage extends State<NewAccountPage> {
   TextEditingController accountUsernameEditingController =
       TextEditingController();
   var db = new Mysql();
+  TextEditingController confirmpasswordEditingController = TextEditingController();
+
+  navigateToLoginPage(){
+    Navigator.pushReplacement
+      (context, MaterialPageRoute(builder: (context) => LoginPage()));
+  }
+
+  @override
+  Widget build(BuildContext context){
 
   void _insertDb() {
     var name = firstNameEditingController.text;
@@ -152,6 +162,17 @@ class _NewAccountPage extends State<NewAccountPage> {
           style: TextStyle(
             fontSize: 20,
             color: Colors.white,
+        leading: IconButton(
+          color: Color(0xff4C748B),
+          icon: Icon(Icons.arrow_back_ios),
+          onPressed: (){
+            navigateToLoginPage();
+          },),
+        title: Text('Dollaire',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 20,
+          color: Colors.white,
           ),
         ),
       ),
