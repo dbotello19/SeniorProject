@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:senior_project/AccountScreen.dart';
 import 'package:senior_project/ConvertPage.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
 
-      home: LoginPage(),
+home: NewAccountPage(),
     );
   }
 }
