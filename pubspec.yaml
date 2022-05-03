@@ -22,7 +22,6 @@ environment:
 
 dependencies:
 
-  mysql1: ^0.19.2
   flutter:
     sdk: flutter
 
