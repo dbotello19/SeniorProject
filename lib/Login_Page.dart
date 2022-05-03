@@ -31,16 +31,20 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset("lib/image/logo.png"),
+        ),
         title: Text('Dollaire',
         textAlign: TextAlign.center,
         style: TextStyle(
-          fontSize: 20,
-          color: Colors.white,
+          fontSize: 26,
+          color: Color(0xffFFD700),
           ),
         ),
       ),
       backgroundColor: Colors.white,
-      body: Padding(padding: const EdgeInsets.all(8.0),
+      body: Padding(padding: const EdgeInsets.all(6.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -48,7 +52,8 @@ class _LoginPageState extends State<LoginPage> {
             Text('Welcome',
             textAlign: TextAlign.left,
             style: TextStyle(
-              fontSize: 30
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
               ),
             ),
             Spacer(),
@@ -99,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
             Spacer(),
             RaisedButton(
               child: Text('Log In'),
-              color: Colors.lightBlue,
+              color: Color(0xffFFD700),
               onPressed: (){
                 setState(() {
                  if(username != "" && password != "")
@@ -109,6 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                 });
               }
             ),
+            Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 10)),
           ],
         ),
       )

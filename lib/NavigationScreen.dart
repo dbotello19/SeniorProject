@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:senior_project/EndScreen.dart';
 import 'package:senior_project/Login_Page.dart';
 import 'package:senior_project/SelectCurrencyPage.dart';
 import 'AccountScreen.dart';
@@ -16,7 +17,7 @@ class _NavigationScreen extends State<NavigationScreen> {
     AccountScreen(),
     AccountScreen(),
     SelectCurrencyPage(),
-    LoginPage(),
+    EndScreen(),
   ];
   @override
   Widget build(BuildContext context){
@@ -27,22 +28,22 @@ class _NavigationScreen extends State<NavigationScreen> {
         onTap: (index) =>
           setState(() =>
            currentIndex = index),
-        backgroundColor: Colors.green,
+        backgroundColor: Color(0xffFFD700),
         items: const <BottomNavigationBarItem>[
            BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
-            backgroundColor: Colors.green,
+            backgroundColor: Color(0xffFFD700),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.money),
             label: 'Deposit',
-            backgroundColor: Colors.green
+            backgroundColor: Color(0xffFFD700)
           ),
            BottomNavigationBarItem(
             icon: Icon(Icons.change_circle_outlined),
             label: 'Exchange',
-            backgroundColor: Colors.green
+            backgroundColor: Color(0xffFFD700)
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.exit_to_app),

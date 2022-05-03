@@ -23,16 +23,20 @@ class _AccountScreen extends State<AccountScreen> {
   Widget build(BuildContext context){
     return Scaffold(
        appBar: AppBar(
-        backgroundColor: Colors.green,
+        backgroundColor: Color(0xffFFD700),
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset("lib/image/logo.png"),
+        ),
         title: Text('Dollaire',
         textAlign: TextAlign.center,
         style: TextStyle(
-          fontSize: 20,
-          color: Colors.white,
+          fontSize: 26,
+          color: Colors.green,
           ),
         ),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.green,
       body: Padding(padding: const EdgeInsets.all(30.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -41,9 +45,9 @@ class _AccountScreen extends State<AccountScreen> {
             textAlign: TextAlign.left,
              style: TextStyle(
                fontFamily: 'Montserrat',
-               fontWeight: FontWeight.w400,
+               fontWeight: FontWeight.bold,
                fontSize: 20,
-               color: Color(0xff4C748B))
+               color: Colors.white)
             ),
             Padding(padding: const EdgeInsets.all(20.0)),
             Container(
@@ -61,7 +65,7 @@ class _AccountScreen extends State<AccountScreen> {
                             "23000",
                             style: TextStyle(
                                           fontFamily: "Montserrat",
-                                          color: Color(0xff4C748B))
+                                          color: Colors.white)
                           ),
                     Row(
                       children: <Widget>[
@@ -71,7 +75,7 @@ class _AccountScreen extends State<AccountScreen> {
                             "Account Balance: ",
                             style: TextStyle(
                                           fontFamily: "Montserrat",
-                                          color: Color(0xff4C748B))
+                                          color: Colors.white)
                             )
                           )
                         ],
@@ -80,7 +84,7 @@ class _AccountScreen extends State<AccountScreen> {
                   ),
                     style: OutlinedButton.styleFrom(
                       side: 
-                      BorderSide(width: 3, color: Color(0xff4C748B)),
+                      BorderSide(width: 3, color: Colors.white),
                       shape: new RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
                         topRight: Radius.circular(10),
@@ -99,7 +103,7 @@ class _AccountScreen extends State<AccountScreen> {
                fontFamily: 'Montserrat',
                fontWeight: FontWeight.w400,
                fontSize: 20,
-               color: Color(0xff4C748B))
+               color: Colors.white)
              ), 
             Container(
               child: Expanded(
@@ -116,19 +120,19 @@ class _AccountScreen extends State<AccountScreen> {
                           fontFamily: 'Montserrat',
                                   fontWeight: FontWeight.w400,
                                   fontSize: 14,
-                                  color: Color(0xff4C748B)),),
+                                  color: Colors.white),),
                           trailing: Text(
                             transactions[i][1],
                              style: TextStyle(
                           fontFamily: 'Montserrat',
                                   fontWeight: FontWeight.w400,
                                   fontSize: 14,
-                                  color: Color(0xff4C748B)),)
+                                  color: Colors.white),)
                           );
                   },
                   separatorBuilder: (context, i){
                     return Divider(
-                      color: Color(0xff4C748B),
+                      color: Colors.white,
                       thickness: 1.0,
                       height: 0,
                     );
