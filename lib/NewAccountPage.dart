@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:senior_project/AESencryption.dart';
 import 'package:senior_project/models/mysql.dart';
+
+
 
 class NewAccountPage extends StatefulWidget {
   @override
   _NewAccountPage createState() => _NewAccountPage();
+  
 }
 
 class _NewAccountPage extends State<NewAccountPage> {
@@ -17,23 +21,46 @@ class _NewAccountPage extends State<NewAccountPage> {
   TextEditingController accountUsernameEditingController =
       TextEditingController();
   var db = new Mysql();
+  var encryptedaccountUser = "";
 
   void _insertDb() {
     var name = firstNameEditingController.text;
+    name = MyEncryptionDecryption.encryptAES(name);
     var lastname = lastnameEditingController.text;
+    lastname = MyEncryptionDecryption.encryptAES(lastname);
     var ssn = ssnEditingController.text;
+    ssn = MyEncryptionDecryption.encryptAES(ssn);
     var email = emailEditingController.text;
+    email = MyEncryptionDecryption.encryptAES(email);
     var accountUser = accountUsernameEditingController.text;
+    accountUser = MyEncryptionDecryption.encryptAES(accountUser);
     var password = passwordEditingController.text;
-    print('$name, $lastname, $ssn, $email, $accountUser, $password');
+    password = MyEncryptionDecryption.encryptAES(password);
     //compare
     //encript
     //add
     db.getConnection().then((conn) {
-      String insert =
+   String retrieve = 'SELECT * FROM test.database where account_username = "$accountUser"';
+      conn.query(retrieve).then((results) {
+        for (var row in results) {
+           {
+            print(row[1] + " is the row");
+            encryptedaccountUser = row[1];
+            print(encryptedaccountUser + " should work");
+          }
+        }
+      });
+      print("$accountUser" + " is not");
+      print('$encryptedaccountUser' + " is");
+      if('$encryptedaccountUser' == ""){
+       String insert =
           "INSERT INTO test.database (first_name, last_name,ssn,email,account_username, account_password) VALUES ('$name','$lastname', '$ssn', '$email', '$accountUser', '$password')";
       conn.query(insert);
       conn.close();
+      }
+      else{
+      print("Error");
+      }
     });
   }
 
