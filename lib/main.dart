@@ -3,7 +3,13 @@ import 'package:senior_project/AccountScreen.dart';
 import 'package:senior_project/ConvertPage.dart';
 import 'package:senior_project/NewAccountPage.dart';
 import 'package:senior_project/SelectCurrencyPage.dart';
+import 'package:senior_project/models/mysql.dart';
 import 'Login_Page.dart';
+import 'package:flutter/material.dart';
+import 'package:encrypt/encrypt.dart' as encrypt;
+
+import 'AESencryption.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -27,6 +33,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
+
       home: LoginPage(),
     );
   }
@@ -52,15 +59,27 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  var db = new Mysql();
+  var name = '';
+  var lastname = '';
+  var newName = "Test";
+  var newLastName = "Gonzalo";
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+  void _getCustomer() {
+    db.getConnection().then((conn) {
+      String sql = 'SELECT * FROM test.database where id = 1;';
+      String insert =
+          "INSERT INTO test.database (first_name, last_name) VALUES ('$newName','$newLastName')";
+      conn.query(insert);
+      conn.query(sql).then((results) {
+        for (var row in results) {
+          setState(() {
+            name = row[1];
+            lastname = row[2];
+          });
+        }
+      });
+      conn.close();
     });
   }
 
@@ -102,14 +121,18 @@ class _MyHomePageState extends State<MyHomePage> {
               'You have pushed the button this many times:',
             ),
             Text(
-              '$_counter',
+              '$name',
+              style: Theme.of(context).textTheme.headline4,
+            ),
+            Text(
+              '$lastname',
               style: Theme.of(context).textTheme.headline4,
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: _getCustomer,
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
