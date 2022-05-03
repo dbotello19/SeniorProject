@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:senior_project/models/mysql.dart';
 import 'AccountScreen.dart';
 import 'NewAccountPage.dart';
 import 'NavigationScreen.dart';
+import 'package:senior_project/AESencryption.dart';
+
 
 
 class LoginPage extends StatefulWidget{
@@ -16,6 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
   bool match = false;
+
   navigateToNavigationScreen(){
     Navigator.pushReplacement
       (context, MaterialPageRoute(builder: (context) => NavigationScreen()));
@@ -24,6 +28,35 @@ class _LoginPageState extends State<LoginPage> {
   navigateToNewAccountPage(){
     Navigator.pushReplacement
       (context, MaterialPageRoute(builder: (context) => NewAccountPage()));
+  }
+  var db = new Mysql();
+  void _checkAccount(){
+    var encryptedusername = username.text;
+    encryptedusername = MyEncryptionDecryption.encryptAES(username);
+    var actualpassword = password.text;
+    var encryptedpassword = "";
+    
+   db.getConnection().then((conn) {
+   String retrieve = 'SELECT * FROM test.database where account_username = "$encryptedusername"';
+      conn.query(retrieve).then((results) {
+        for (var row in results) {
+          setState(() {
+            encryptedpassword = row[6];
+          });
+        }
+      });
+      if('$encryptedusername' == "")
+      {
+        print("Error");
+      }
+      else if('$actualpassword' != '$encryptedpassword'){
+        print("Error");
+      }
+      else{
+        Navigator.push(context, MaterialPageRoute(builder: (context) => AccountScreen()));
+      }
+      conn.close();
+    });
   }
 
   @override
@@ -100,14 +133,7 @@ class _LoginPageState extends State<LoginPage> {
             RaisedButton(
               child: Text('Log In'),
               color: Colors.lightBlue,
-              onPressed: (){
-                setState(() {
-                 if(username != "" && password != "")
-                 {
-                  navigateToNavigationScreen();
-                 }
-                });
-              }
+              onPressed: _checkAccount,
             ),
           ],
         ),
