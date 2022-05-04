@@ -3,6 +3,7 @@ import 'package:senior_project/Login_Page.dart';
 import 'package:senior_project/SelectCurrencyPage.dart';
 import 'AccountScreen.dart';
 import 'Login_Page.dart';
+import 'package:senior_project/models/AccountInfo.dart';
 
 
 class NavigationScreen extends StatefulWidget{
@@ -18,6 +19,7 @@ class _NavigationScreen extends State<NavigationScreen> {
     SelectCurrencyPage(),
     LoginPage(),
   ];
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
