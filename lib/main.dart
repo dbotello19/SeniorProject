@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
 
-home: NewAccountPage(),
+home: LoginPage(),
     );
   }
 }

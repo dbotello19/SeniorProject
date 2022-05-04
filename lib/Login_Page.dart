@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:senior_project/models/AccountInfo.dart';
 import 'package:senior_project/models/mysql.dart';
 import 'AccountScreen.dart';
 import 'NewAccountPage.dart';
@@ -13,6 +14,7 @@ class LoginPage extends StatefulWidget{
 }
 
 class _LoginPageState extends State<LoginPage> {
+  accountinfo acc = accountinfo();
 
   bool hideUsername = true;
   bool hidePassword = true;
@@ -32,30 +34,33 @@ class _LoginPageState extends State<LoginPage> {
   var db = new Mysql();
   void _checkAccount(){
     var encryptedusername = username.text;
-    encryptedusername = MyEncryptionDecryption.encryptAES(username);
+    encryptedusername = MyEncryptionDecryption.encryptAES(encryptedusername);
     var actualpassword = password.text;
+    actualpassword = MyEncryptionDecryption.encryptAES(actualpassword);
     var encryptedpassword = "";
-    
-   db.getConnection().then((conn) {
+      db.getConnection().then((conn) {
    String retrieve = 'SELECT * FROM test.database where account_username = "$encryptedusername"';
       conn.query(retrieve).then((results) {
         for (var row in results) {
-          setState(() {
+           {
             encryptedpassword = row[6];
-          });
+          }
         }
-      });
-      if('$encryptedusername' == "")
+        print('$encryptedpassword' + " encrypted password" + "$actualpassword");
+       if('$encryptedusername' == "")
       {
         print("Error");
       }
       else if('$actualpassword' != '$encryptedpassword'){
         print("Error");
-      }
+    }
       else{
-        Navigator.push(context, MaterialPageRoute(builder: (context) => AccountScreen()));
+       Navigator.push(context, MaterialPageRoute(builder: (context) => NavigationScreen()));
       }
       conn.close();
+        
+      });
+     
     });
   }
 

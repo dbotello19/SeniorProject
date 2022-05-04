@@ -44,23 +44,19 @@ class _NewAccountPage extends State<NewAccountPage> {
       conn.query(retrieve).then((results) {
         for (var row in results) {
            {
-            print(row[1] + " is the row");
             encryptedaccountUser = row[1];
-            print(encryptedaccountUser + " should work");
           }
         }
-      });
-      print("$accountUser" + " is not");
-      print('$encryptedaccountUser' + " is");
-      if('$encryptedaccountUser' == ""){
+        if('$encryptedaccountUser' == ""){
        String insert =
           "INSERT INTO test.database (first_name, last_name,ssn,email,account_username, account_password) VALUES ('$name','$lastname', '$ssn', '$email', '$accountUser', '$password')";
       conn.query(insert);
-      conn.close();
+     conn.close();
       }
       else{
-      print("Error");
+        Navigator.push(context, MaterialPageRoute(builder: (context) => NewAccountPage()));
       }
+      });
     });
   }
 
