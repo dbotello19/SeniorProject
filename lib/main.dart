@@ -6,7 +6,6 @@ import 'package:senior_project/models/AccountInfo.dart';
 import 'package:senior_project/models/mysql.dart';
 import 'package:senior_project/models/Accountinfo.dart';
 import 'Login_Page.dart';
-import 'SplashScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,11 +30,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-<<<<<<< HEAD
-      home: SplashScreen(),
-=======
       home: LoginPage(),
->>>>>>> e7d3ae49250cc3ee3f12adb3b8c58c4a36973a81
     );
   }
 }
