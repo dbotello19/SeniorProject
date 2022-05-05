@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:senior_project/ConvertPage.dart';
 import 'package:senior_project/NewAccountPage.dart';
 import 'package:senior_project/SelectCurrencyPage.dart';
+import 'package:senior_project/models/AccountInfo.dart';
 import 'package:senior_project/models/mysql.dart';
+import 'package:senior_project/models/Accountinfo.dart';
 import 'Login_Page.dart';
 
 void main() {
@@ -11,6 +13,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -27,8 +30,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      //home: MyHomePage(title: 'Flutter and Mysql Demo Home Page'),
-      home: NewAccountPage(),
+      home: LoginPage(),
     );
   }
 }

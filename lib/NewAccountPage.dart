@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:senior_project/AESencryption.dart';
 import 'package:senior_project/models/mysql.dart';
+import 'package:senior_project/models/AccountInfo.dart';
+import 'package:senior_project/models/dbinfo.dart';
+import 'NavigationScreen.dart';
 
 class NewAccountPage extends StatefulWidget {
   @override
@@ -19,6 +22,8 @@ class _NewAccountPage extends State<NewAccountPage> {
       TextEditingController();
   var db = new Mysql();
   var encryptedaccountUser = "";
+
+  //accountinfo _account = accountinfo();
 
   void _insertDb() {
     var name = firstNameEditingController.text;
@@ -42,22 +47,21 @@ class _NewAccountPage extends State<NewAccountPage> {
       conn.query(retrieve).then((results) {
         for (var row in results) {
           {
-            print(row[1] + " is the row");
             encryptedaccountUser = row[1];
-            print(encryptedaccountUser + " should work");
           }
         }
+        if ('$encryptedaccountUser' == "") {
+          accName = name;
+          accBalance = 0;
+          String insert =
+              "INSERT INTO test.database (first_name, last_name,ssn,email,account_username, account_password,balance) VALUES ('$name','$lastname', '$ssn', '$email', '$accountUser', '$password', 0)";
+          conn.query(insert);
+          conn.close();
+        } else {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => NavigationScreen()));
+        }
       });
-      print("$accountUser" + " is not");
-      print('$encryptedaccountUser' + " is");
-      if ('$encryptedaccountUser' == "") {
-        String insert =
-            "INSERT INTO test.database (first_name, last_name,ssn,email,account_username, account_password) VALUES ('$name','$lastname', '$ssn', '$email', '$accountUser', '$password')";
-        conn.query(insert);
-        conn.close();
-      } else {
-        print("Error");
-      }
     });
   }
 
@@ -217,6 +221,10 @@ class _NewAccountPage extends State<NewAccountPage> {
                       textColor: Colors.white,
                       onPressed: _insertDb,
                     ),
+                  ),
+                  Text(
+                    '',
+                    style: Theme.of(context).textTheme.headline4,
                   ),
                 ],
               )),
