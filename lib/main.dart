@@ -31,7 +31,11 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
+<<<<<<< HEAD
       home: SplashScreen(),
+=======
+      home: LoginPage(),
+>>>>>>> e7d3ae49250cc3ee3f12adb3b8c58c4a36973a81
     );
   }
 }

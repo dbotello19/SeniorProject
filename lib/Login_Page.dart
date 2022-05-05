@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:senior_project/models/AccountInfo.dart';
 import 'package:senior_project/models/mysql.dart';
 import 'package:senior_project/models/dbinfo.dart';
@@ -7,6 +8,11 @@ import 'NewAccountPage.dart';
 import 'NavigationScreen.dart';
 import 'package:senior_project/AESencryption.dart';
 import 'package:senior_project/models/dbinfo.dart';
+=======
+import 'AccountScreen.dart';
+import 'NewAccountPage.dart';
+import 'NavigationScreen.dart';
+>>>>>>> e7d3ae49250cc3ee3f12adb3b8c58c4a36973a81
 
 class LoginPage extends StatefulWidget {
   @override
@@ -21,6 +27,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
   bool match = false;
+<<<<<<< HEAD
   var encryptedusername, actualpassword,encryptedpassword;
   navigateToNavigationScreen() {
     Navigator.pushReplacement(
@@ -63,6 +70,16 @@ class _LoginPageState extends State<LoginPage> {
         conn.close();
       });
     });
+=======
+  navigateToNavigationScreen(){
+    Navigator.pushReplacement
+      (context, MaterialPageRoute(builder: (context) => NavigationScreen()));
+  }
+
+  navigateToNewAccountPage(){
+    Navigator.pushReplacement
+      (context, MaterialPageRoute(builder: (context) => NewAccountPage()));
+>>>>>>> e7d3ae49250cc3ee3f12adb3b8c58c4a36973a81
   }
 
   @override
@@ -150,9 +167,47 @@ class _LoginPageState extends State<LoginPage> {
                 color: Colors.lightBlue,
                 onPressed: _checkAccount,
               ),
+<<<<<<< HEAD
             ],
           ),
         ));
+=======
+            ),
+            Spacer(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+            Text("Don't have an Account? ",
+            style: TextStyle(color: Colors.red),),
+            GestureDetector(
+              onTap:(){
+                setState(() {
+                  navigateToNewAccountPage();
+                });
+              },
+              child:
+              Text("Sign Up", style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),),
+                )
+              ]
+            ),
+            Spacer(),
+            RaisedButton(
+              child: Text('Log In'),
+              color: Colors.lightBlue,
+              onPressed: (){
+                setState(() {
+                 if(username != "" && password != "")
+                 {
+                  navigateToNavigationScreen();
+                 }
+                });
+              }
+            ),
+          ],
+        ),
+      )
+    );
+>>>>>>> e7d3ae49250cc3ee3f12adb3b8c58c4a36973a81
   }
 
   void _togglePasswordView() {
