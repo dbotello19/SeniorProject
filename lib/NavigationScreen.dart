@@ -17,7 +17,7 @@ class _NavigationScreen extends State<NavigationScreen> {
     AccountScreen(),
     AccountScreen(),
     SelectCurrencyPage(),
-    LoginPage(),
+    AccountScreen(),
   ];
 
   @override
