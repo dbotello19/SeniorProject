@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:senior_project/AESencryption.dart';
 import 'package:senior_project/Login_Page.dart';
 import 'package:senior_project/models/AccountInfo.dart';
 import 'Login_Page.dart';
@@ -8,7 +9,6 @@ class AccountScreen extends StatefulWidget {
   @override
   _AccountScreen createState() => _AccountScreen();
 }
-
 List<List<dynamic>> transactions = [
   ["Gas", "25.00"],
   ["Steam", " 10.00"],
@@ -16,7 +16,6 @@ List<List<dynamic>> transactions = [
   ["Fortnite", " 10.00"],
   ["Gas", " 25.00"],
 ];
-
 class _AccountScreen extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
