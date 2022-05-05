@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:senior_project/ConvertPage.dart';
 import 'package:senior_project/NewAccountPage.dart';
+import 'package:senior_project/SelectCurrencyPage.dart';
 import 'package:senior_project/models/mysql.dart';
-import 'package:sqflite/sqflite.dart';
-
 import 'Login_Page.dart';
 
 void main() {
@@ -27,7 +27,8 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter and Mysql Demo Home Page'),
+      //home: MyHomePage(title: 'Flutter and Mysql Demo Home Page'),
+      home: NewAccountPage(),
     );
   }
 }
@@ -55,10 +56,16 @@ class _MyHomePageState extends State<MyHomePage> {
   var db = new Mysql();
   var name = '';
   var lastname = '';
+  var newName = "Test";
+  var newLastName = "Gonzalo";
 
   void _getCustomer() {
     db.getConnection().then((conn) {
-      String sql = 'SELECT * FROM test.database where id = 1;';
+      String sql = 'SELECT * FROM test.database where first_name = 1;';
+
+      String insert =
+          "INSERT INTO test.database (first_name, last_name) VALUES ('$newName','$newLastName')";
+      conn.query(insert);
       conn.query(sql).then((results) {
         for (var row in results) {
           setState(() {

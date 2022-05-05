@@ -1,5 +1,4 @@
 import 'package:mysql1/mysql1.dart';
-import 'package:sqflite/sqflite.dart';
 
 class Mysql {
   static String host = '35.223.98.217',

@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:senior_project/models/mysql.dart';
+import 'AccountScreen.dart';
+import 'NewAccountPage.dart';
+import 'NavigationScreen.dart';
+import 'package:senior_project/AESencryption.dart';
+
 
 
 class LoginPage extends StatefulWidget{
@@ -13,6 +19,46 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
   bool match = false;
+
+  navigateToNavigationScreen(){
+    Navigator.pushReplacement
+      (context, MaterialPageRoute(builder: (context) => NavigationScreen()));
+  }
+
+  navigateToNewAccountPage(){
+    Navigator.pushReplacement
+      (context, MaterialPageRoute(builder: (context) => NewAccountPage()));
+  }
+  var db = new Mysql();
+  void _checkAccount(){
+    var encryptedusername = username.text;
+    encryptedusername = MyEncryptionDecryption.encryptAES(username);
+    var actualpassword = password.text;
+    var encryptedpassword = "";
+    
+   db.getConnection().then((conn) {
+   String retrieve = 'SELECT * FROM test.database where account_username = "$encryptedusername"';
+      conn.query(retrieve).then((results) {
+        for (var row in results) {
+          setState(() {
+            encryptedpassword = row[6];
+          });
+        }
+      });
+      if('$encryptedusername' == "")
+      {
+        print("Error");
+      }
+      else if('$actualpassword' != '$encryptedpassword'){
+        print("Error");
+      }
+      else{
+        Navigator.push(context, MaterialPageRoute(builder: (context) => AccountScreen()));
+      }
+      conn.close();
+    });
+  }
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -20,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
         backgroundColor: Colors.green,
         title: Text('Dollaire',
         textAlign: TextAlign.center,
-        style: TextStyle(
+        style: TextStyle( 
           fontSize: 20,
           color: Colors.white,
           ),
@@ -73,7 +119,11 @@ class _LoginPageState extends State<LoginPage> {
             Text("Don't have an Account? ",
             style: TextStyle(color: Colors.red),),
             GestureDetector(
-              onTap:(){},
+              onTap:(){
+                setState(() {
+                  navigateToNewAccountPage();
+                });
+              },
               child:
               Text("Sign Up", style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),),
                 )
@@ -83,18 +133,7 @@ class _LoginPageState extends State<LoginPage> {
             RaisedButton(
               child: Text('Log In'),
               color: Colors.lightBlue,
-              onPressed: (){
-                setState(() {
-                  if(username == "Oscar" && password == "123")
-                  {
-                    match = true;
-                  }
-                  else
-                  {
-                    match = false;
-                  }
-                });
-              }
+              onPressed: _checkAccount,
             ),
           ],
         ),
@@ -113,3 +152,8 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 }
+
+
+
+
+
