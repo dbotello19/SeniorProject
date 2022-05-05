@@ -21,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
   bool match = false;
-
+  var encryptedusername, actualpassword,encryptedpassword;
   navigateToNavigationScreen() {
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => NavigationScreen()));
@@ -34,11 +34,11 @@ class _LoginPageState extends State<LoginPage> {
 
   var db = new Mysql();
   void _checkAccount() {
-    var encryptedusername = username.text;
+    encryptedusername = username.text;
     encryptedusername = MyEncryptionDecryption.encryptAES(encryptedusername);
-    var actualpassword = password.text;
+    actualpassword = password.text;
     actualpassword = MyEncryptionDecryption.encryptAES(actualpassword);
-    var encryptedpassword = "";
+    encryptedpassword = "";
     db.getConnection().then((conn) {
       String retrieve =
           'SELECT * FROM test.database where account_username = "$encryptedusername"';
@@ -48,7 +48,6 @@ class _LoginPageState extends State<LoginPage> {
             encryptedpassword = row[6];
             accId = row[0];
             accName = row[1];
-            //accName = MyEncryptionDecryption.decryptAES(accName);
             accBalance = row[9];
           }
         }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senior_project/AESencryption.dart';
+import 'package:senior_project/Login_Page.dart';
 import 'package:senior_project/models/mysql.dart';
 import 'package:senior_project/models/AccountInfo.dart';
 import 'package:senior_project/models/dbinfo.dart';
@@ -59,7 +60,7 @@ class _NewAccountPage extends State<NewAccountPage> {
           conn.close();
         } else {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => NavigationScreen()));
+              MaterialPageRoute(builder: (context) => LoginPage()));
         }
       });
     });
