@@ -4,6 +4,7 @@ import 'package:senior_project/models/mysql.dart';
 import 'package:senior_project/models/AccountInfo.dart';
 import 'package:senior_project/models/dbinfo.dart';
 import 'NavigationScreen.dart';
+import 'Login_Page.dart';
 
 class NewAccountPage extends StatefulWidget {
   @override
@@ -59,7 +60,7 @@ class _NewAccountPage extends State<NewAccountPage> {
           conn.close();
         } else {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => NavigationScreen()));
+              MaterialPageRoute(builder: (context) => LoginPage()));
         }
       });
     });
