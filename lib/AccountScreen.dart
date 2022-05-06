@@ -9,6 +9,7 @@ class AccountScreen extends StatefulWidget {
   @override
   _AccountScreen createState() => _AccountScreen();
 }
+
 List<List<dynamic>> transactions = [
   ["Gas", "25.00"],
   ["Steam", " 10.00"],
@@ -21,6 +22,7 @@ class _AccountScreen extends State<AccountScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Image.asset('lib/image/logo.png'),
         backgroundColor: Colors.green,
         title: Text(
           'Dollaire',

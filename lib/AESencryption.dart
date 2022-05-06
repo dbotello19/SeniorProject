@@ -12,7 +12,7 @@ class MyEncryptionDecryption {
     print(encrypted.bytes);
     print(encrypted.base16);
     print(encrypted.base64);
-    return encrypted.base16;
+    return encrypted.base64;
   }
 
   static decryptAES(text) {

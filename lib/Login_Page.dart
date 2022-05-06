@@ -52,11 +52,28 @@ class _LoginPageState extends State<LoginPage> {
             accBalance = row[9];
           }
         }
-        print('$encryptedpassword' + " encrypted password" + "$actualpassword");
         if ('$encryptedusername' == "") {
-          print("Error");
+          showDialog<String>(
+                context: context,
+              builder: (BuildContext context) => AlertDialog(
+                title: Text("Error"),
+                content: Text("Incorrect Information"),
+                actions: <Widget>[
+                  TextButton(child: Text("Ok"),
+                  onPressed: () => Navigator.pop(context, 'Ok')),
+                ],
+              ));
         } else if ('$actualpassword' != '$encryptedpassword') {
-          print("Error");
+          showDialog<String>(
+                context: context,
+              builder: (BuildContext context) => AlertDialog(
+                title: Text("Error"),
+                content: Text("Incorrect Information"),
+                actions: <Widget>[
+                  TextButton(child: Text("Ok"),
+                  onPressed: () => Navigator.pop(context, 'Ok')),
+                ],
+              ));
         } else {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => NavigationScreen()));
@@ -71,6 +88,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.green,
+          leading: Image.asset('lib/image/logo.png'),
           title: Text(
             'Dollaire',
             textAlign: TextAlign.center,
