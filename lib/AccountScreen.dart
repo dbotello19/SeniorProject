@@ -22,8 +22,11 @@ class _AccountScreen extends State<AccountScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Image.asset('lib/image/logo.png'),
         backgroundColor: Colors.green,
+         leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset("lib/image/logo.png"),
+        ),
         title: Text(
           'Dollaire',
           textAlign: TextAlign.center,

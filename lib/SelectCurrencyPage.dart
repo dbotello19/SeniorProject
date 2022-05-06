@@ -16,6 +16,10 @@ class _SelectCurrencyPageState extends State<SelectCurrencyPage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.green,
+           leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset("lib/image/logo.png"),
+        ),
           title: Text(
             'Dollaire',
             textAlign: TextAlign.center,
