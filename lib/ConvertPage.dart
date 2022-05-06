@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:senior_project/SelectCurrencyPage.dart';
 import './utils/API.dart';
 import './globals.dart';
 import 'package:senior_project/models/dbinfo.dart';
@@ -22,6 +23,10 @@ class _ConvertPageState extends State<ConvertPage> {
   bool _calculate = false;
   num answer = 0;
   num rateNum = 0;
+
+   navigateToSelectCurrencyPage() {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => SelectCurrencyPage()));}
   @override
   void initState() {
     super.initState();
@@ -34,6 +39,10 @@ class _ConvertPageState extends State<ConvertPage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.green,
+          leading: IconButton(icon: Icon(Icons.arrow_back),
+        onPressed: (){
+          navigateToSelectCurrencyPage();
+        }),
           title: Text(
             'Dollaire',
             textAlign: TextAlign.center,
