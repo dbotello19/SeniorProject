@@ -1,16 +1,12 @@
-
 import 'package:flutter/material.dart';
-import 'package:senior_project/AccountScreen.dart';
 import 'package:senior_project/ConvertPage.dart';
 import 'package:senior_project/NewAccountPage.dart';
 import 'package:senior_project/SelectCurrencyPage.dart';
+import 'package:senior_project/models/AccountInfo.dart';
 import 'package:senior_project/models/mysql.dart';
+import 'package:senior_project/models/Accountinfo.dart';
 import 'Login_Page.dart';
-import 'package:flutter/material.dart';
-import 'package:encrypt/encrypt.dart' as encrypt;
-
-import 'AESencryption.dart';
-
+import 'SplashScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,6 +14,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -34,8 +31,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-
-home: NewAccountPage(),
+      home: SplashScreen(),
     );
   }
 }
@@ -68,7 +64,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _getCustomer() {
     db.getConnection().then((conn) {
-      String sql = 'SELECT * FROM test.database where id = 1;';
+      String sql = 'SELECT * FROM test.database where first_name = 1;';
+
       String insert =
           "INSERT INTO test.database (first_name, last_name) VALUES ('$newName','$newLastName')";
       conn.query(insert);

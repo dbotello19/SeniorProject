@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:senior_project/SelectCurrencyPage.dart';
 import './utils/API.dart';
 import './globals.dart';
+import 'package:senior_project/models/dbinfo.dart';
 
 class ConvertPage extends StatefulWidget {
   final convertFrom;
@@ -21,6 +23,10 @@ class _ConvertPageState extends State<ConvertPage> {
   bool _calculate = false;
   num answer = 0;
   num rateNum = 0;
+
+   navigateToSelectCurrencyPage() {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => SelectCurrencyPage()));}
   @override
   void initState() {
     super.initState();
@@ -33,6 +39,10 @@ class _ConvertPageState extends State<ConvertPage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.green,
+          leading: IconButton(icon: Icon(Icons.arrow_back),
+        onPressed: (){
+          navigateToSelectCurrencyPage();
+        }),
           title: Text(
             'Dollaire',
             textAlign: TextAlign.center,
@@ -81,11 +91,13 @@ class _ConvertPageState extends State<ConvertPage> {
                       return ElevatedButton(
                         key: Key('convert-button'),
                         child: Text('Convert to $convertTo'),
-                        onPressed: myText.text.isNotEmpty
+                        onPressed: myText.text.isNotEmpty &&
+                                accBalance >= double.parse(myText.text)
                             ? () {
                                 if (double.tryParse(myText.text) != null &&
                                     double.parse(myText.text) >= 0 &&
-                                    rate.isNotEmpty) {
+                                    rate.isNotEmpty &&
+                                    accBalance >= double.parse(myText.text)) {
                                   userInput = double.parse(myText.text);
                                   _error = false;
                                   setState(() {

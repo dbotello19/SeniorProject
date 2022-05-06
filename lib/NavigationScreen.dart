@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:senior_project/EndScreen.dart';
 import 'package:senior_project/Login_Page.dart';
 import 'package:senior_project/SelectCurrencyPage.dart';
 import 'AccountScreen.dart';
@@ -16,7 +17,7 @@ class _NavigationScreen extends State<NavigationScreen> {
     AccountScreen(),
     AccountScreen(),
     SelectCurrencyPage(),
-    LoginPage(),
+    EndScreen(),
   ];
   @override
   Widget build(BuildContext context){
