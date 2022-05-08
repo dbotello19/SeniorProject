@@ -65,12 +65,15 @@ class _ConvertPageState extends State<ConvertPage> {
                             db.getConnection().then((conn) {
                               String update =
                                   'UPDATE test.wallet SET balance = balance + $answer WHERE account_username = "$accUser" AND currency = "${widget.convertTo}"';
+                              String updateDb =
+                                  'UPDATE test.database SET balance = balance - $answer WHERE account_username = "$accUser"';
                               String transaction =
                                   'SELECT * FROM test.wallet where account_username = "$accUser" AND currency = "${widget.convertTo}"';
                               conn.query(transaction).then((results) {
                                 for (var row in results) {
                                   {
                                     conn.query(update);
+                                    conn.query(updateDb);
                                     id = row[3];
                                     print(id);
                                   }
@@ -79,6 +82,7 @@ class _ConvertPageState extends State<ConvertPage> {
                                   String insert =
                                       "INSERT INTO test.wallet (account_username, currency, balance) VALUES ('$accUser','${widget.convertTo}', '$answer')";
                                   conn.query(insert);
+                                  conn.query(updateDb);
                                 }
                                 conn.close();
                               });
