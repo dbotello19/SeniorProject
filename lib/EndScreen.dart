@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'Login_Page.dart';
+import 'package:senior_project/models/dbinfo.dart';
 
 class EndScreen extends StatefulWidget {
   @override
@@ -12,6 +13,11 @@ class _EndScreenState extends State<EndScreen> {
   void initState() {
     super.initState();
     startTime();
+    dbtransaction.clear();
+    accId = -1;
+    accName = "";
+    accUser = "";
+    accBalance = -1;
   }
 
   startTime() async {
@@ -27,34 +33,37 @@ class _EndScreenState extends State<EndScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green,
-      body: Container(
-         decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("lib/image/logo.png"),
-                fit: BoxFit.fitWidth,
-              ),
+        backgroundColor: Colors.green,
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("lib/image/logo.png"),
+              fit: BoxFit.fitWidth,
             ),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [Text("Thanks For Using ",
-          style: TextStyle(
-            fontFamily: "Norwester",
-            fontStyle: FontStyle.normal,
-            fontWeight: FontWeight.bold,
-            fontSize: 42,
-            color: Color(0xffFFD700)
           ),
-          ),Text("Our Service",
-          style: TextStyle(
-            fontFamily: "Kollektif",
-            fontStyle: FontStyle.normal,
-            fontWeight: FontWeight.bold,
-            fontSize: 42,
-            color: Color(0xffFFD700)))],
-        ),
-      ),
-    ));
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Thanks For Using ",
+                  style: TextStyle(
+                      fontFamily: "Norwester",
+                      fontStyle: FontStyle.normal,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 42,
+                      color: Color(0xffFFD700)),
+                ),
+                Text("Our Service",
+                    style: TextStyle(
+                        fontFamily: "Kollektif",
+                        fontStyle: FontStyle.normal,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 42,
+                        color: Color(0xffFFD700)))
+              ],
+            ),
+          ),
+        ));
   }
 }

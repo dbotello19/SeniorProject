@@ -46,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
         for (var row in results) {
           {
             encryptedpassword = row[6];
-            accId = row[0];
+            accUser = row[5];
             accName = row[1];
             //accName = MyEncryptionDecryption.decryptAES(accName);
             accBalance = row[9];
@@ -60,6 +60,19 @@ class _LoginPageState extends State<LoginPage> {
         } else {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => NavigationScreen()));
+        }
+        conn.close();
+      });
+    });
+    //get transactions
+    db.getConnection().then((conn) {
+      String transaction =
+          'SELECT * FROM test.transactions where account_username = "$encryptedusername"';
+      conn.query(transaction).then((results) {
+        for (var row in results) {
+          {
+            dbtransaction.add([row[1], row[2].toString()]);
+          }
         }
         conn.close();
       });
