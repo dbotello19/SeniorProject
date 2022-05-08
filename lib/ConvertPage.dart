@@ -82,6 +82,7 @@ class _ConvertPageState extends State<ConvertPage> {
                                   String insert =
                                       "INSERT INTO test.wallet (account_username, currency, balance) VALUES ('$accUser','${widget.convertTo}', '$answer')";
                                   conn.query(insert);
+
                                   conn.query(updateDb);
                                 }
                                 conn.close();
