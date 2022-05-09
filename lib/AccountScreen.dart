@@ -17,6 +17,7 @@ List<List<dynamic>> transactions = [
   ["Fortnite", " 10.00"],
   ["Gas", " 25.00"],
 ];
+
 class _AccountScreen extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
@@ -103,7 +104,7 @@ class _AccountScreen extends State<AccountScreen> {
                       dense: true,
                       visualDensity: VisualDensity(vertical: -2.0),
                       title: Text(
-                        transactions[i][0],
+                        dbtransaction[i][0],
                         style: TextStyle(
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.w400,
@@ -111,7 +112,7 @@ class _AccountScreen extends State<AccountScreen> {
                             color: Color(0xff4C748B)),
                       ),
                       trailing: Text(
-                        transactions[i][1],
+                        dbtransaction[i][1],
                         style: TextStyle(
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.w400,
@@ -126,7 +127,7 @@ class _AccountScreen extends State<AccountScreen> {
                     height: 0,
                   );
                 },
-                itemCount: transactions.length,
+                itemCount: dbtransaction.length,
               )),
             )
           ],
