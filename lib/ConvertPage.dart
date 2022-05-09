@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:senior_project/NavigationScreen.dart';
 import 'package:senior_project/SelectCurrencyPage.dart';
 import './utils/API.dart';
 import './globals.dart';
@@ -29,6 +30,10 @@ class _ConvertPageState extends State<ConvertPage> {
    navigateToSelectCurrencyPage() {
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => SelectCurrencyPage()));}
+
+  navigateToNavigationPage() {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => NavigationScreen()));}
   @override
   void initState() {
     super.initState();
@@ -75,7 +80,7 @@ class _ConvertPageState extends State<ConvertPage> {
                               String update =
                                   'UPDATE test.wallet SET balance = balance + $answer WHERE account_username = "$accUser" AND currency = "${widget.convertTo}"';
                               String updateDb =
-                                  'UPDATE test.database SET balance = balance - $answer WHERE account_username = "$accUser"';
+                                  'UPDATE test.database SET balance = balance - $userInput WHERE account_username = "$accUser"';
                               String transaction =
                                   'SELECT * FROM test.wallet where account_username = "$accUser" AND currency = "${widget.convertTo}"';
                               conn.query(transaction).then((results) {
@@ -95,6 +100,7 @@ class _ConvertPageState extends State<ConvertPage> {
                                   conn.query(updateDb);
                                 }
                                 conn.close();
+                                navigateToNavigationPage();
                               });
                             });
                           }
