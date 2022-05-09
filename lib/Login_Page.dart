@@ -35,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
   var db = new Mysql();
   void _checkAccount() {
     var encryptedusername = username.text;
-    encryptedusername = MyEncryptionDecryption.encryptAES(encryptedusername);
+    //encryptedusername = MyEncryptionDecryption.encryptAES(encryptedusername);
     var actualpassword = password.text;
     actualpassword = MyEncryptionDecryption.encryptAES(actualpassword);
     var encryptedpassword = "";
