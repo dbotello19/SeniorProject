@@ -84,14 +84,21 @@ class _ConvertPageState extends State<ConvertPage> {
                               String update =
                                   'UPDATE test.wallet SET balance = balance + $answer WHERE account_username = "$accUser" AND currency = "${widget.convertTo}"';
                               String updateDb =
-                                  'UPDATE test.database SET balance = balance - $userInput WHERE account_username = "$accUser"';
+                                  'UPDATE test.wallet SET balance = balance - $userInput WHERE account_username = "$accUser" AND currency = "${widget.convertFrom}"';
                               String transaction =
                                   'SELECT * FROM test.wallet where account_username = "$accUser" AND currency = "${widget.convertTo}"';
+                              String insertTransaction1 =
+                                  "INSERT INTO test.transactions (account_username, description, amount, date) VALUES ('$accUser','${widget.convertFrom} -', '$userInput', '1/1/2021')";
+                              String insertTransaction2 =
+                                  "INSERT INTO test.transactions (account_username, description, amount, date) VALUES ('$accUser','${widget.convertTo} +', '$answer', '1/1/2021')";
+                              
                               conn.query(transaction).then((results) {
                                 for (var row in results) {
                                   {
                                     conn.query(update);
                                     conn.query(updateDb);
+                                    conn.query(insertTransaction1);
+                                    conn.query(insertTransaction2);
                                     id = row[3];
                                   }
                                 }
@@ -99,7 +106,6 @@ class _ConvertPageState extends State<ConvertPage> {
                                   String insert =
                                       "INSERT INTO test.wallet (account_username, currency, balance) VALUES ('$accUser','${widget.convertTo}', '$answer')";
                                   conn.query(insert);
-
                                   conn.query(updateDb);
                                 }
                                 conn.close();

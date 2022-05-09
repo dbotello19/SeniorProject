@@ -5,6 +5,7 @@ import 'package:senior_project/SelectCurrencyPage.dart';
 import 'AccountScreen.dart';
 import 'Login_Page.dart';
 import 'package:senior_project/models/dbinfo.dart';
+import 'BalanceScreen.dart';
 
 class NavigationScreen extends StatefulWidget {
   @override
@@ -15,7 +16,7 @@ class _NavigationScreen extends State<NavigationScreen> {
   int currentIndex = 0;
   final screens = [
     AccountScreen(),
-    AccountScreen(),
+    BalanceScreen(),
     SelectCurrencyPage(),
     EndScreen(),
   ];
