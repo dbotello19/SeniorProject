@@ -42,7 +42,7 @@ class _AccountScreen extends State<AccountScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Hello $accName',
+            Text('Hello Oscar',
                 textAlign: TextAlign.left,
                 style: TextStyle(
                     fontFamily: 'Montserrat',
