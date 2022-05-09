@@ -1,3 +1,5 @@
 int accId = -1;
+String accUser = "";
 String accName = "";
-int accBalance = -1;
+double accBalance = -1;
+List<List<dynamic>> dbtransaction = [];

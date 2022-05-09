@@ -3,6 +3,7 @@ import 'package:senior_project/SelectCurrencyPage.dart';
 import './utils/API.dart';
 import './globals.dart';
 import 'package:senior_project/models/dbinfo.dart';
+import 'package:senior_project/models/mysql.dart';
 
 class ConvertPage extends StatefulWidget {
   final convertFrom;
@@ -19,6 +20,7 @@ class _ConvertPageState extends State<ConvertPage> {
   late Future<num> futureRate;
   String rate = '';
   num userInput = 1;
+  var db = new Mysql();
   bool _error = false;
   bool _calculate = false;
   num answer = 0;
@@ -67,6 +69,35 @@ class _ConvertPageState extends State<ConvertPage> {
                           rateNum = double.parse(rate);
                           answer = rateNum * userInput;
                           answer = double.parse((answer).toStringAsFixed(2));
+                          if (_calculate == true) {
+                            int id = -1;
+                            db.getConnection().then((conn) {
+                              String update =
+                                  'UPDATE test.wallet SET balance = balance + $answer WHERE account_username = "$accUser" AND currency = "${widget.convertTo}"';
+                              String updateDb =
+                                  'UPDATE test.database SET balance = balance - $answer WHERE account_username = "$accUser"';
+                              String transaction =
+                                  'SELECT * FROM test.wallet where account_username = "$accUser" AND currency = "${widget.convertTo}"';
+                              conn.query(transaction).then((results) {
+                                for (var row in results) {
+                                  {
+                                    conn.query(update);
+                                    conn.query(updateDb);
+                                    id = row[3];
+                                    print(id);
+                                  }
+                                }
+                                if (id == -1) {
+                                  String insert =
+                                      "INSERT INTO test.wallet (account_username, currency, balance) VALUES ('$accUser','${widget.convertTo}', '$answer')";
+                                  conn.query(insert);
+
+                                  conn.query(updateDb);
+                                }
+                                conn.close();
+                              });
+                            });
+                          }
                           return Text(
                               '$userInput ${widget.convertFrom} = $answer ${widget.convertTo}');
                         } else if (snapshot.hasError) {
