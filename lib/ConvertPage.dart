@@ -27,13 +27,16 @@ class _ConvertPageState extends State<ConvertPage> {
   num answer = 0;
   num rateNum = 0;
 
-   navigateToSelectCurrencyPage() {
+  navigateToSelectCurrencyPage() {
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => SelectCurrencyPage()));}
+        context, MaterialPageRoute(builder: (context) => SelectCurrencyPage()));
+  }
 
   navigateToNavigationPage() {
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => NavigationScreen()));}
+        context, MaterialPageRoute(builder: (context) => NavigationScreen()));
+  }
+
   @override
   void initState() {
     super.initState();
@@ -46,10 +49,11 @@ class _ConvertPageState extends State<ConvertPage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.green,
-          leading: IconButton(icon: Icon(Icons.arrow_back),
-        onPressed: (){
-          navigateToSelectCurrencyPage();
-        }),
+          leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                navigateToSelectCurrencyPage();
+              }),
           title: Text(
             'Dollaire',
             textAlign: TextAlign.center,
@@ -89,7 +93,6 @@ class _ConvertPageState extends State<ConvertPage> {
                                     conn.query(update);
                                     conn.query(updateDb);
                                     id = row[3];
-                                    print(id);
                                   }
                                 }
                                 if (id == -1) {

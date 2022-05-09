@@ -8,16 +8,11 @@ class MyEncryptionDecryption {
 
   static encryptAES(text) {
     final encrypted = encrypter.encrypt(text, iv: iv);
-
-    print(encrypted.bytes);
-    print(encrypted.base16);
-    print(encrypted.base64);
     return encrypted.base64;
   }
 
   static decryptAES(text) {
     final decrypted = encrypter.decrypt(text, iv: iv);
-    print(decrypted);
     return decrypted;
   }
 }

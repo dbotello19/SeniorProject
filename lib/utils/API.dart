@@ -1,5 +1,6 @@
 import 'dart:ffi';
-
+import 'package:senior_project/models/mysql.dart';
+import 'package:senior_project/models/dbinfo.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -18,5 +19,42 @@ class API {
       }
     }
     throw Exception('API request failed');
+  }
+}
+
+class SQL {
+  static Future<List<List<dynamic>>> fetchWallets() async {
+    var db = new Mysql();
+    late List<List<dynamic>> wallets = [];
+    await db.getConnection().then((conn) async {
+      String retrieve =
+          'SELECT * FROM test.wallet where account_username = "$accUser";';
+      await conn.query(retrieve).then((results) {
+        for (var row in results) {
+          wallets.add(row);
+        }
+        ;
+      });
+    });
+    if (wallets.isEmpty) {
+      throw Exception('SQL request failed');
+    } else {
+      return wallets;
+    }
+  }
+
+  static Future<num> fetchNum() async {
+    List<List<dynamic>> wallets = await fetchWallets();
+
+    int i = 0;
+    while (true) {
+      try {
+        wallets[i];
+      } catch (RangeError) {
+        break;
+      }
+      i++;
+    }
+    return i;
   }
 }

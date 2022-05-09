@@ -54,26 +54,28 @@ class _LoginPageState extends State<LoginPage> {
         }
         if ('$encryptedusername' == "") {
           showDialog<String>(
-                context: context,
+              context: context,
               builder: (BuildContext context) => AlertDialog(
-                title: Text("Error"),
-                content: Text("Incorrect Information"),
-                actions: <Widget>[
-                  TextButton(child: Text("Ok"),
-                  onPressed: () => Navigator.pop(context, 'Ok')),
-                ],
-              ));
+                    title: Text("Error"),
+                    content: Text("Incorrect Information"),
+                    actions: <Widget>[
+                      TextButton(
+                          child: Text("Ok"),
+                          onPressed: () => Navigator.pop(context, 'Ok')),
+                    ],
+                  ));
         } else if ('$actualpassword' != '$encryptedpassword') {
           showDialog<String>(
-                context: context,
+              context: context,
               builder: (BuildContext context) => AlertDialog(
-                title: Text("Error"),
-                content: Text("Incorrect Information"),
-                actions: <Widget>[
-                  TextButton(child: Text("Ok"),
-                  onPressed: () => Navigator.pop(context, 'Ok')),
-                ],
-              ));
+                    title: Text("Error"),
+                    content: Text("Incorrect Information"),
+                    actions: <Widget>[
+                      TextButton(
+                          child: Text("Ok"),
+                          onPressed: () => Navigator.pop(context, 'Ok')),
+                    ],
+                  ));
         } else {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => NavigationScreen()));
@@ -101,10 +103,10 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.green,
-           leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.asset("lib/image/logo.png"),
-        ),
+          leading: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset("lib/image/logo.png"),
+          ),
           title: Text(
             'Dollaire',
             textAlign: TextAlign.center,
