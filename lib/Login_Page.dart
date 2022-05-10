@@ -35,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
   var db = new Mysql();
   void _checkAccount() {
     var encryptedusername = username.text;
-    //encryptedusername = MyEncryptionDecryption.encryptAES(encryptedusername);
+    encryptedusername = MyEncryptionDecryption.encryptAES(encryptedusername);
     var actualpassword = password.text;
     actualpassword = MyEncryptionDecryption.encryptAES(actualpassword);
     var encryptedpassword = "";
@@ -48,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
             encryptedpassword = row[6];
             accUser = row[5];
             accName = row[1];
-            //accName = MyEncryptionDecryption.decryptAES(accName);
+            accName = MyEncryptionDecryption.decryptAES(accName);
           }
         }
         if ('$encryptedusername' == "") {

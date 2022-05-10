@@ -27,15 +27,15 @@ class _NewAccountPage extends State<NewAccountPage> {
 
   void _insertDb() {
     name = firstNameEditingController.text;
-    //name = MyEncryptionDecryption.encryptAES(name);
+    name = MyEncryptionDecryption.encryptAES(name);
     lastname = lastnameEditingController.text;
-    //lastname = MyEncryptionDecryption.encryptAES(lastname);
+    lastname = MyEncryptionDecryption.encryptAES(lastname);
     ssn = ssnEditingController.text;
     ssn = MyEncryptionDecryption.encryptAES(ssn);
     email = emailEditingController.text;
     email = MyEncryptionDecryption.encryptAES(email);
     accountUser = accountUsernameEditingController.text;
-    //accountUser = MyEncryptionDecryption.encryptAES(accountUser);
+    accountUser = MyEncryptionDecryption.encryptAES(accountUser);
     password = passwordEditingController.text;
     password = MyEncryptionDecryption.encryptAES(password);
     //compare

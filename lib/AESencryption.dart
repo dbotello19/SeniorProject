@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:encrypt/encrypt.dart' as encrypt;
+import 'package:encrypt/encrypt.dart';
 
 class MyEncryptionDecryption {
   //For AES Encryption/Decryption
@@ -10,8 +13,8 @@ class MyEncryptionDecryption {
     return encrypted.base64;
   }
 
-  static decryptAES(text) {
-    final decrypted = encrypter.decrypt(text, iv: iv);
-    return decrypted;
-  }
+  static String decryptAES(String base64Text) {
+  String decrypted = encrypter.decrypt(Encrypted.fromBase64(base64Text), iv: iv);
+  return decrypted;
+}
 }
