@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:senior_project/AESencryption.dart';
 import 'package:senior_project/Login_Page.dart';
 import 'package:senior_project/models/AccountInfo.dart';
+import 'package:senior_project/models/mysql.dart';
 import 'Login_Page.dart';
 import 'package:senior_project/models/dbinfo.dart';
+ 
+
+
 
 class AccountScreen extends StatefulWidget {
   @override
+
   _AccountScreen createState() => _AccountScreen();
 }
 List<List<dynamic>> transactions = [
@@ -16,8 +21,34 @@ List<List<dynamic>> transactions = [
   ["Fortnite", " 10.00"],
   ["Gas", " 25.00"],
 ];
+var db = Mysql();
+
+void extractDB()
+{
+String retrieve =
+          'SELECT * FROM test.transactions where account_username = "$accName"';
+db.getConnection().then((conn) => {
+
+     conn.query(retrieve).then((results) {
+        for (var row in results) {
+          {
+            transactions.insert( transactions.length + 1, row[1][row[2]]);
+          }
+}
+})
+
+
+});
+}
+
+
 class _AccountScreen extends State<AccountScreen> {
   @override
+
+  void initState() {
+    extractDB();
+    super.initState();
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

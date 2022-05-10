@@ -1,7 +1,7 @@
 import 'package:encrypt/encrypt.dart' as encrypt;
 
 class MyEncryptionDecryption {
-  //For AES Encryption/Decryption
+  //AES Encryption/Decryption
   static final key = encrypt.Key.fromLength(32);
   static final iv = encrypt.IV.fromLength(16);
   static final encrypter = encrypt.Encrypter(encrypt.AES(key));
@@ -12,7 +12,7 @@ class MyEncryptionDecryption {
     print(encrypted.bytes);
     print(encrypted.base16);
     print(encrypted.base64);
-    return encrypted.base16;
+    return encrypted;
   }
 
   static decryptAES(text) {
