@@ -55,7 +55,10 @@ class _NewAccountPage extends State<NewAccountPage> {
           accBalance = 0;
           String insert =
               "INSERT INTO test.database (first_name, last_name,ssn,email,account_username, account_password) VALUES ('$name','$lastname', '$ssn', '$email', '$accountUser', '$password')";
+          String updateWallet =
+              "INSERT INTO test.wallet (account_username, currency, balance) VALUES ('$accountUser', 'USD', '0')";
           conn.query(insert);
+          conn.query(updateWallet);
           conn.close();
           navigateToLoginPage();
         } else {
