@@ -54,21 +54,22 @@ class _NewAccountPage extends State<NewAccountPage> {
           //accName = name;
           accBalance = 0;
           String insert =
-              "INSERT INTO test.database (first_name, last_name,ssn,email,account_username, account_password,balance) VALUES ('$name','$lastname', '$ssn', '$email', '$accountUser', '$password', 0)";
+              "INSERT INTO test.database (first_name, last_name,ssn,email,account_username, account_password) VALUES ('$name','$lastname', '$ssn', '$email', '$accountUser', '$password')";
           conn.query(insert);
           conn.close();
           navigateToLoginPage();
         } else {
-              showDialog<String>(
-                context: context,
+          showDialog<String>(
+              context: context,
               builder: (BuildContext context) => AlertDialog(
-                title: Text("Error"),
-                content: Text("Incorrect Information"),
-                actions: <Widget>[
-                  TextButton(child: Text("Ok"),
-                  onPressed: () => Navigator.pop(context, 'Ok')),
-                ],
-              ));
+                    title: Text("Error"),
+                    content: Text("Incorrect Information"),
+                    actions: <Widget>[
+                      TextButton(
+                          child: Text("Ok"),
+                          onPressed: () => Navigator.pop(context, 'Ok')),
+                    ],
+                  ));
         }
       });
     });
@@ -76,11 +77,11 @@ class _NewAccountPage extends State<NewAccountPage> {
 
   navigateToLoginPage() {
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => LoginPage()));}
+        context, MaterialPageRoute(builder: (context) => LoginPage()));
+  }
 
   @override
   Widget build(BuildContext context) {
-
     final firstname = TextFormField(
       autofocus: false,
       controller: firstNameEditingController,
@@ -188,10 +189,11 @@ class _NewAccountPage extends State<NewAccountPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
-        leading: IconButton(icon: Icon(Icons.arrow_back),
-        onPressed: (){
-          navigateToLoginPage();
-        }),
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              navigateToLoginPage();
+            }),
         title: Text(
           'Dollaire',
           textAlign: TextAlign.center,
@@ -213,13 +215,16 @@ class _NewAccountPage extends State<NewAccountPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  SizedBox(height: 200, child: Container(
-         decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("lib/image/logo.png"),
-                fit: BoxFit.contain,
-              ),
-            ),)),
+                  SizedBox(
+                      height: 200,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage("lib/image/logo.png"),
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      )),
                   SizedBox(height: 45),
                   firstname,
                   SizedBox(height: 45),

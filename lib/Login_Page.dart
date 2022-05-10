@@ -49,7 +49,6 @@ class _LoginPageState extends State<LoginPage> {
             accUser = row[5];
             accName = row[1];
             //accName = MyEncryptionDecryption.decryptAES(accName);
-            accBalance = row[9];
           }
         }
         if ('$encryptedusername' == "") {

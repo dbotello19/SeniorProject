@@ -63,42 +63,6 @@ class _AccountScreen extends State<AccountScreen> {
                     color: Color(0xff4C748B))),
             Padding(padding: const EdgeInsets.all(20.0)),
             Container(
-              width: 330,
-              height: 50,
-              padding: EdgeInsets.fromLTRB(15, 5, 15, 0),
-              child: OutlinedButton(
-                onPressed: () => {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LoginPage()))
-                },
-                child: Stack(alignment: Alignment.centerRight, children: [
-                  Text("$accBalance",
-                      style: TextStyle(
-                          fontFamily: "Montserrat", color: Color(0xff4C748B))),
-                  Row(
-                    children: <Widget>[
-                      Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text("USD Balance: ",
-                              style: TextStyle(
-                                  fontFamily: "Montserrat",
-                                  color: Color(0xff4C748B))))
-                    ],
-                  ),
-                ]),
-                style: OutlinedButton.styleFrom(
-                  side: BorderSide(width: 3, color: Color(0xff4C748B)),
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(10),
-                    topLeft: Radius.circular(10),
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(10),
-                  )),
-                ),
-              ),
-            ),
-            Container(
                 child: FutureBuilder<List<List<dynamic>>>(
                     future: wallets,
                     builder: (context, snapshot) {
@@ -145,7 +109,7 @@ class _AccountScreen extends State<AccountScreen> {
                                                             alignment: Alignment
                                                                 .centerLeft,
                                                             child: Text(
-                                                                "${walletList![i][1]} Balance: ",
+                                                                "${walletList[i][1]} Balance: ",
                                                                 style: TextStyle(
                                                                     fontFamily:
                                                                         "Montserrat",

@@ -57,4 +57,21 @@ class SQL {
     }
     return i;
   }
+
+  static Future<num> fetchBalance(String cur) async {
+    num balance = 0;
+    var db = new Mysql();
+    await db.getConnection().then((conn) async {
+      String retrieve =
+          'SELECT * FROM test.wallet where account_username = "$accUser" AND currency = "$cur";';
+      await conn.query(retrieve).then((results) {
+        for (var row in results) {
+          balance = row[2];
+        }
+        ;
+      });
+    });
+
+    return balance;
+  }
 }

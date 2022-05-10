@@ -19,7 +19,9 @@ class ConvertPage extends StatefulWidget {
 class _ConvertPageState extends State<ConvertPage> {
   final TextEditingController _controller = TextEditingController();
   late Future<num> futureRate;
+  late Future<num> userBalance;
   String rate = '';
+  num balance = 0;
   num userInput = 1;
   var db = new Mysql();
   bool _error = false;
@@ -42,6 +44,7 @@ class _ConvertPageState extends State<ConvertPage> {
     super.initState();
     futureRate =
         API.fetchRate(httpClient, widget.convertFrom, widget.convertTo);
+    userBalance = SQL.fetchBalance(widget.convertFrom);
   }
 
   @override
@@ -84,7 +87,7 @@ class _ConvertPageState extends State<ConvertPage> {
                               String update =
                                   'UPDATE test.wallet SET balance = balance + $answer WHERE account_username = "$accUser" AND currency = "${widget.convertTo}"';
                               String updateDb =
-                                  'UPDATE test.database SET balance = balance - $userInput WHERE account_username = "$accUser"';
+                                  'UPDATE test.wallet SET balance = balance - $userInput WHERE account_username = "$accUser" AND currency = "${widget.convertFrom}"';
                               String transaction =
                                   'SELECT * FROM test.wallet where account_username = "$accUser" AND currency = "${widget.convertTo}"';
                               conn.query(transaction).then((results) {
@@ -123,35 +126,47 @@ class _ConvertPageState extends State<ConvertPage> {
                         textAlign: TextAlign.center,
                         keyboardType: TextInputType.number,
                       )),
-                  ValueListenableBuilder<TextEditingValue>(
-                    valueListenable: _controller,
-                    builder: (context, myText, child) {
-                      final convertTo = widget.convertTo;
-                      final convertFrom = widget.convertFrom;
-                      return ElevatedButton(
-                        key: Key('convert-button'),
-                        child: Text('Convert to $convertTo'),
-                        onPressed: myText.text.isNotEmpty &&
-                                accBalance >= double.parse(myText.text)
-                            ? () {
-                                if (double.tryParse(myText.text) != null &&
-                                    double.parse(myText.text) >= 0 &&
-                                    rate.isNotEmpty &&
-                                    accBalance >= double.parse(myText.text)) {
-                                  userInput = double.parse(myText.text);
-                                  _error = false;
-                                  setState(() {
-                                    _calculate = true;
-                                  });
-                                } else {
-                                  _error = true;
-                                }
-                                setState(() {});
-                              }
-                            : null,
-                      );
-                    },
-                  )
+                  FutureBuilder<num>(
+                      future: userBalance,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          String balance = snapshot.data.toString();
+                          num balanceNum = double.parse(balance);
+                          return ValueListenableBuilder<TextEditingValue>(
+                            valueListenable: _controller,
+                            builder: (context, myText, child) {
+                              final convertTo = widget.convertTo;
+                              final convertFrom = widget.convertFrom;
+                              print(balanceNum);
+                              return ElevatedButton(
+                                key: Key('convert-button'),
+                                child: Text('Convert to $convertTo'),
+                                onPressed: myText.text.isNotEmpty &&
+                                        balanceNum >= double.parse(myText.text)
+                                    ? () {
+                                        if (double.tryParse(myText.text) !=
+                                                null &&
+                                            double.parse(myText.text) >= 0 &&
+                                            rate.isNotEmpty &&
+                                            balanceNum >=
+                                                double.parse(myText.text)) {
+                                          userInput = double.parse(myText.text);
+                                          _error = false;
+                                          setState(() {
+                                            _calculate = true;
+                                          });
+                                        } else {
+                                          _error = true;
+                                        }
+                                        setState(() {});
+                                      }
+                                    : null,
+                              );
+                            },
+                          );
+                        }
+                        return Text("loading");
+                      }),
                 ]))));
   }
 }
