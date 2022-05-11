@@ -11,10 +11,11 @@ class SelectCurrencyPage extends StatefulWidget {
 }
 
 class _SelectCurrencyPageState extends State<SelectCurrencyPage> {
-
   navigateToNavigationPage() {
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => NavigationScreen()));}
+        context, MaterialPageRoute(builder: (context) => NavigationScreen()));
+  }
+
   String dropdownValueFrom = 'USD';
   String dropdownValueTo = 'EUR';
   @override
@@ -22,10 +23,11 @@ class _SelectCurrencyPageState extends State<SelectCurrencyPage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.green,
-           leading: IconButton(icon: Icon(Icons.arrow_back),
-        onPressed: (){
-          navigateToNavigationPage();
-        }),
+          leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                navigateToNavigationPage();
+              }),
           title: Text(
             'Dollaire',
             textAlign: TextAlign.center,

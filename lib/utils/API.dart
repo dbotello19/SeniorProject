@@ -89,8 +89,13 @@ class SQL {
     }
   }
 
-  static Future<num> fetchNumT() async {
-    List<List<dynamic>> wallets = await fetchCurrencyTransactions(currency);
+  static Future<num> fetchNumT(bool all) async {
+    late List<List<dynamic>> wallets;
+    if (all) {
+      wallets = await fetchTransactions();
+    } else {
+      wallets = await fetchCurrencyTransactions(currency);
+    }
 
     int i = 0;
     while (true) {
