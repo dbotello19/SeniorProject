@@ -11,7 +11,9 @@ class DepositScreen extends StatefulWidget {
 }
 
 class _DepositScreen extends State<DepositScreen> {
+
   String formattedDate = '';
+
   navigateToNavigationPage() {
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => NavigationScreen()));
@@ -26,6 +28,7 @@ class _DepositScreen extends State<DepositScreen> {
   var db = new Mysql();
 
   void _deposit() {
+
     var now = new DateTime.now();
     var formatter = new DateFormat('yMd');
     formattedDate = formatter.format(now);
@@ -33,6 +36,8 @@ class _DepositScreen extends State<DepositScreen> {
     db.getConnection().then((conn) {
       String insertTransaction1 =
           "INSERT INTO test.transactions (account_username, description, amount, date, currency) VALUES ('$accUser','Direct Deposit', '$money', '$formattedDate','USD')";
+
+ 
       String update =
           'UPDATE test.wallet SET balance = balance + $money WHERE account_username = "$accUser" AND currency = "USD"';
       conn.query(update);
@@ -54,29 +59,33 @@ class _DepositScreen extends State<DepositScreen> {
               }),
         ),
         body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Padding(padding: EdgeInsets.all(90)),
-              TextField(
-                controller: amount,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(), hintText: 'Deposit Amount'),
+
+            padding: const EdgeInsets.all(8.0),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(padding: EdgeInsets.all(90)),
+                  TextField(
+                    controller: amount,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Deposit Amount'),
+                  ),
+                  Padding(padding: EdgeInsets.all(16)),
+                  SizedBox(
+                      width: 150,
+                      height: 50,
+                      child: RaisedButton(
+                        child: Text(
+                          'Confirm Deposit',
+                          style: TextStyle(fontSize: 16, color: Colors.white),
+                        ),
+                        color: Colors.green,
+                        onPressed: _deposit,
+                      )),
+                ],
               ),
-              Padding(padding: EdgeInsets.all(16)),
-              SizedBox(
-                  width: 150,
-                  height: 50,
-                  child: RaisedButton(
-                    child: Text(
-                      'Confirm Deposit',
-                      style: TextStyle(fontSize: 16, color: Colors.white),
-                    ),
-                    color: Colors.green,
-                    onPressed: _deposit,
-                  )),
-            ],
-          ),
-        ));
+            )));
+
   }
 }
