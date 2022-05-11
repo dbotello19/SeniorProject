@@ -72,59 +72,63 @@ class _Transactions extends State<Transactions> {
                                     int walletNumInt =
                                         int.parse(walletNumString);
                                     if (snapshot.hasData) {
-                                      return Column(children: [
-                                        for (int i = 0; i < walletNumInt; i++)
-                                          Container(
-                                            width: 330,
-                                            height: 45,
-                                            padding: EdgeInsets.fromLTRB(
-                                                15, 5, 15, 0),
-                                            child: Stack(
-                                                alignment:
-                                                    Alignment.centerRight,
-                                                children: [
-                                                  Text("${walletList![i][2]}",
-                                                      style: TextStyle(
-                                                          fontFamily:
-                                                              "Montserrat",
-                                                          color: Color(
-                                                              0xff4C748B))),
-                                                  Row(
-                                                    children: <Widget>[
-                                                      Align(
-                                                          alignment: Alignment
-                                                              .centerLeft,
-                                                          child: Text(
-                                                              "${walletList[i][1]} Balance: ",
-                                                              style: TextStyle(
-                                                                  fontFamily:
-                                                                      "Montserrat",
-                                                                  color: Color(
-                                                                      0xff4C748B))))
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    children: <Widget>[
-                                                      Align(
-                                                          alignment: Alignment
-                                                              .bottomLeft,
-                                                          child: Text(
-                                                              "${walletList[i][3]}",
-                                                              style: TextStyle(
-                                                                  fontFamily:
-                                                                      "Montserrat",
-                                                                  fontSize: 10,
-                                                                  color: Color(
-                                                                      0xff4C748B))))
-                                                    ],
-                                                  ),
-                                                ]),
-                                          ),
-                                        Divider(color: Color(0xff4C748B)),
-                                        Padding(
-                                          padding: EdgeInsets.all(5),
-                                        )
-                                      ]);
+                                      if (walletList?[0][0] == 0)
+                                        return Text("No Transactions Found");
+                                      else
+                                        return Column(children: [
+                                          for (int i = 0; i < walletNumInt; i++)
+                                            Container(
+                                              width: 330,
+                                              height: 45,
+                                              padding: EdgeInsets.fromLTRB(
+                                                  15, 5, 15, 0),
+                                              child: Stack(
+                                                  alignment:
+                                                      Alignment.centerRight,
+                                                  children: [
+                                                    Text("${walletList![i][2]}",
+                                                        style: TextStyle(
+                                                            fontFamily:
+                                                                "Montserrat",
+                                                            color: Color(
+                                                                0xff4C748B))),
+                                                    Row(
+                                                      children: <Widget>[
+                                                        Align(
+                                                            alignment: Alignment
+                                                                .centerLeft,
+                                                            child: Text(
+                                                                "${walletList[i][1]} Balance: ",
+                                                                style: TextStyle(
+                                                                    fontFamily:
+                                                                        "Montserrat",
+                                                                    color: Color(
+                                                                        0xff4C748B))))
+                                                      ],
+                                                    ),
+                                                    Row(
+                                                      children: <Widget>[
+                                                        Align(
+                                                            alignment: Alignment
+                                                                .bottomLeft,
+                                                            child: Text(
+                                                                "${walletList[i][3]}",
+                                                                style: TextStyle(
+                                                                    fontFamily:
+                                                                        "Montserrat",
+                                                                    fontSize:
+                                                                        10,
+                                                                    color: Color(
+                                                                        0xff4C748B))))
+                                                      ],
+                                                    ),
+                                                  ]),
+                                            ),
+                                          Divider(color: Color(0xff4C748B)),
+                                          Padding(
+                                            padding: EdgeInsets.all(5),
+                                          )
+                                        ]);
                                     } else {
                                       return Text("${snapshot.error}");
                                     }

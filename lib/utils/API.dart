@@ -37,12 +37,13 @@ class SQL {
       });
     });
     if (wallets.isEmpty) {
-      throw Exception('SQL request failed');
+      return [
+        [0]
+      ];
     } else {
       return wallets;
     }
   }
-
 
   static Future<List<List<dynamic>>> fetchTransactions() async {
     var db = new Mysql();
@@ -57,7 +58,9 @@ class SQL {
       });
     });
     if (transactions.isEmpty) {
-      throw Exception('SQL request failed');
+      return [
+        [0]
+      ];
     } else {
       return transactions;
     }
@@ -78,7 +81,9 @@ class SQL {
       });
     });
     if (transactions.isEmpty) {
-      throw Exception('SQL request failed');
+      return [
+        [0]
+      ];
     } else {
       return transactions;
     }
@@ -98,6 +103,7 @@ class SQL {
     }
     return i;
   }
+
   static Future<num> fetchNum() async {
     List<List<dynamic>> wallets = await fetchWallets();
 
