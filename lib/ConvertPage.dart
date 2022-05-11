@@ -25,12 +25,11 @@ class _ConvertPageState extends State<ConvertPage> {
   num balance = 0;
   num userInput = 1;
   var db = new Mysql();
-  bool _error = false;
+  bool _text = false;
   bool _calculate = false;
   num answer = 0;
   num rateNum = 0;
   String formattedDate = '';
-
 
   navigateToSelectCurrencyPage() {
     Navigator.pushReplacement(
@@ -85,6 +84,7 @@ class _ConvertPageState extends State<ConvertPage> {
                         if (snapshot.hasData) {
                           rate = snapshot.data.toString();
                           rateNum = double.parse(rate);
+                          _text = true;
                           answer = rateNum * userInput;
                           answer = double.parse((answer).toStringAsFixed(2));
                           if (_calculate == true) {
@@ -137,10 +137,17 @@ class _ConvertPageState extends State<ConvertPage> {
                       margin: const EdgeInsets.all(20),
                       decoration: BoxDecoration(border: Border.all()),
                       child: TextField(
-                        controller: _controller,
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.number,
-                      )),
+                          controller: _controller,
+                          textAlign: TextAlign.center,
+                          keyboardType: TextInputType.number,
+                          onChanged: (text) {
+                            setState(() {
+                              if (double.tryParse(text) != null &&
+                                  double.parse(text) >= 0 &&
+                                  rate.isNotEmpty)
+                                userInput = double.parse(text);
+                            });
+                          })),
                   FutureBuilder<num>(
                       future: userBalance,
                       builder: (context, snapshot) {
@@ -152,7 +159,6 @@ class _ConvertPageState extends State<ConvertPage> {
                             builder: (context, myText, child) {
                               final convertTo = widget.convertTo;
                               final convertFrom = widget.convertFrom;
-                              print(balanceNum);
                               return ElevatedButton(
                                 key: Key('convert-button'),
                                 child: Text('Convert to $convertTo'),
@@ -166,12 +172,9 @@ class _ConvertPageState extends State<ConvertPage> {
                                             balanceNum >=
                                                 double.parse(myText.text)) {
                                           userInput = double.parse(myText.text);
-                                          _error = false;
                                           setState(() {
                                             _calculate = true;
                                           });
-                                        } else {
-                                          _error = true;
                                         }
                                         setState(() {});
                                       }
