@@ -31,6 +31,7 @@ class _ConvertPageState extends State<ConvertPage> {
   num rateNum = 0;
   String formattedDate = '';
 
+
   navigateToSelectCurrencyPage() {
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => SelectCurrencyPage()));
@@ -115,6 +116,7 @@ class _ConvertPageState extends State<ConvertPage> {
                                       "INSERT INTO test.wallet (account_username, currency, balance) VALUES ('$accUser','${widget.convertTo}', '$answer')";
                                   conn.query(insert);
                                   conn.query(updateDb);
+
                                   conn.query(insertTransaction1);
                                   conn.query(insertTransaction2);
                                 }

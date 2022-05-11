@@ -43,6 +43,7 @@ class SQL {
     }
   }
 
+
   static Future<List<List<dynamic>>> fetchTransactions() async {
     var db = new Mysql();
     late List<List<dynamic>> transactions = [];
@@ -97,7 +98,6 @@ class SQL {
     }
     return i;
   }
-
   static Future<num> fetchNum() async {
     List<List<dynamic>> wallets = await fetchWallets();
 

@@ -5,18 +5,25 @@ import 'package:senior_project/Login_Page.dart';
 import 'package:senior_project/Transactions.dart';
 import './utils/API.dart';
 import 'package:senior_project/models/AccountInfo.dart';
+import 'package:senior_project/models/mysql.dart';
 import 'Login_Page.dart';
 import 'package:senior_project/models/dbinfo.dart';
+ 
+
+
 
 class AccountScreen extends StatefulWidget {
   @override
+
   _AccountScreen createState() => _AccountScreen();
 }
+
 
 class _AccountScreen extends State<AccountScreen> {
   late Future<List<List<dynamic>>> wallets;
   late Future<num> walletNum;
   late Future<List<List<dynamic>>> transactions;
+
   @override
   void initState() {
     wallets = SQL.fetchWallets();
@@ -26,6 +33,7 @@ class _AccountScreen extends State<AccountScreen> {
   }
 
   @override
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -82,13 +90,17 @@ class _AccountScreen extends State<AccountScreen> {
                                                 15, 5, 15, 0),
                                             child: OutlinedButton(
                                               onPressed: () => {
+
                                                 currency =
                                                     "${walletList![i][1]}",
+
                                                 Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
+
                                                             Transactions()))
+
                                               },
                                               child: Stack(
                                                   alignment:
@@ -155,6 +167,7 @@ class _AccountScreen extends State<AccountScreen> {
                     fontWeight: FontWeight.w400,
                     fontSize: 20,
                     color: Color(0xff4C748B))),
+
           ],
         ),
       ),

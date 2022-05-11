@@ -30,23 +30,40 @@ class _BalanceScreen extends State<BalanceScreen>{
         onPressed: (){
           navigateToNavigationScreen();}
     )),
-    body: Padding(
-      padding: const EdgeInsets.all(8.0),
+
+    body: Center(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          RaisedButton(
-            child: Text('Deposit'),
-            color: Colors.lightBlue,
-            onPressed: () => navigateToDepositScreen(),
+          //Padding(padding: EdgeInsets.all(35)),
+          SizedBox(
+            width: 200,
+            height: 50,
+            child: 
+              RaisedButton(
+              child: Text('Deposit',
+              style: TextStyle(fontSize: 28, color: Colors.white)),
+              color: Colors.green,
+              onPressed: () => navigateToDepositScreen(),
           ),
-          RaisedButton(
-            child: Text('Transfer'),
-            color: Colors.lightBlue,
+          ),
+          
+          Padding(padding: EdgeInsets.all(35)),
+          SizedBox(
+            width: 200,
+            height: 50,
+           child:RaisedButton(
+            child: Text('Transfer',
+            style: TextStyle(fontSize: 28, color: Colors.white)),
+            color: Colors.green,
             onPressed: () => navigateToTransferScreen(),
+          ) 
           )
+          
         ],
-      ),
-    )
+    )),
+    
    );
   }
 }

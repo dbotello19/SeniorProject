@@ -108,36 +108,52 @@ class _TransferScreen extends State<TransferScreen>{
         }),
     ),
     body: Padding(
-      padding: const EdgeInsets.all(8.0),
+
+      padding: const EdgeInsets.all(50.0),
+      child: SingleChildScrollView(
       child: Column(
+      
         children: [
+          Padding(padding: EdgeInsets.all(35)),
+
           TextField(
               controller: accountfrom,
               decoration: InputDecoration(
                 hintText: 'From Account'
               ),
             ),
-            Spacer(),
-            TextField(
+
+            Padding(padding: EdgeInsets.all(30)),
+             TextField(
+
               controller: accountto,
               decoration: InputDecoration(
                 hintText: 'To Account'
               ),
             ),
-            Spacer(),
+            Padding(padding: EdgeInsets.all(35)),
+            
+
             TextField(
               controller: amount,
               decoration: InputDecoration(
                 hintText: 'Amount'
-              ),
+              )             
             ),
-            RaisedButton(
-              child: Text('Confirm Transfer'),
-              color: Colors.lightBlue,
+          Padding(padding: EdgeInsets.all(35)),
+            SizedBox(
+              width: 160,
+              height: 50,
+             child:RaisedButton(
+              
+              child: Text('Confirm Transfer', style: TextStyle(fontSize: 16, color: Colors.white),),
+              color: Colors.green,
               onPressed: _transfer,
-            )
+            )             
+            ),
         ],
-      ),
+      ),),
+
     )
    );
   }

@@ -23,6 +23,7 @@ class _DepositScreen extends State<DepositScreen>{
   void _deposit(){
     var money = amount.text;
     db.getConnection().then((conn) {
+
       String update = 'UPDATE test.wallet SET balance = balance + $money WHERE account_username = "$accUser" AND currency = "USD"';
       conn.query(update);
       conn.close();
@@ -40,20 +41,39 @@ class _DepositScreen extends State<DepositScreen>{
         }),
     ),
     body: Padding(
+     
       padding: const EdgeInsets.all(8.0),
       child: Column(
+        
         children: [
+            Padding(padding: EdgeInsets.all(90)),
+
             TextField(
               controller: amount,
               decoration: InputDecoration(
+                border: OutlineInputBorder(),
+               
                 hintText: 'Deposit Amount'
               ),
             ),
-            RaisedButton(
-              child: Text('Confirm Deposit'),
-              color: Colors.lightBlue,
+            Padding(padding: EdgeInsets.all(16)),
+            SizedBox(
+            width: 150,
+            height: 50,
+            
+            child:RaisedButton(
+              
+              child: Text('Confirm Deposit',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.white
+              ),),
+              color: Colors.green,
               onPressed: _deposit,
-            )
+            )              
+            ),
+
+
         ],
       ),
     )
