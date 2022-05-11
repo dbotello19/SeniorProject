@@ -135,7 +135,7 @@ class _TransferScreen extends State<TransferScreen> {
                 Padding(padding: EdgeInsets.all(35)),
                 TextField(
                     controller: amount,
-                    decoration: InputDecoration(hintText: 'Amount')),
+                    decoration: InputDecoration(hintText: 'Amount in USD')),
                 Padding(padding: EdgeInsets.all(35)),
                 SizedBox(
                     width: 160,
