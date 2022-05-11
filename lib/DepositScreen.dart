@@ -3,6 +3,7 @@ import 'NavigationScreen.dart';
 import 'package:senior_project/models/mysql.dart';
 import 'package:senior_project/models/dbinfo.dart';
 import 'BalanceScreen.dart';
+import 'package:intl/intl.dart';
 
 class DepositScreen extends StatefulWidget {
   @override
@@ -10,6 +11,9 @@ class DepositScreen extends StatefulWidget {
 }
 
 class _DepositScreen extends State<DepositScreen> {
+
+  String formattedDate = '';
+
   navigateToNavigationPage() {
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => NavigationScreen()));
@@ -24,11 +28,20 @@ class _DepositScreen extends State<DepositScreen> {
   var db = new Mysql();
 
   void _deposit() {
+
+    var now = new DateTime.now();
+    var formatter = new DateFormat('yMd');
+    formattedDate = formatter.format(now);
     var money = amount.text;
     db.getConnection().then((conn) {
+      String insertTransaction1 =
+          "INSERT INTO test.transactions (account_username, description, amount, date, currency) VALUES ('$accUser','Direct Deposit', '$money', '$formattedDate','USD')";
+
+ 
       String update =
           'UPDATE test.wallet SET balance = balance + $money WHERE account_username = "$accUser" AND currency = "USD"';
       conn.query(update);
+      conn.query(insertTransaction1);
       conn.close();
       navigateToNavigationPage();
     });
@@ -46,6 +59,7 @@ class _DepositScreen extends State<DepositScreen> {
               }),
         ),
         body: Padding(
+
             padding: const EdgeInsets.all(8.0),
             child: SingleChildScrollView(
               child: Column(
@@ -72,5 +86,6 @@ class _DepositScreen extends State<DepositScreen> {
                 ],
               ),
             )));
+
   }
 }
