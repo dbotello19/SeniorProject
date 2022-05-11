@@ -3,6 +3,7 @@ import 'package:senior_project/NavigationScreen.dart';
 import 'package:senior_project/SelectCurrencyPage.dart';
 import './utils/API.dart';
 import './globals.dart';
+import 'package:intl/intl.dart';
 import 'package:senior_project/models/dbinfo.dart';
 import 'package:senior_project/models/mysql.dart';
 
@@ -28,6 +29,7 @@ class _ConvertPageState extends State<ConvertPage> {
   bool _calculate = false;
   num answer = 0;
   num rateNum = 0;
+  String formattedDate = '';
 
   navigateToSelectCurrencyPage() {
     Navigator.pushReplacement(
@@ -42,6 +44,9 @@ class _ConvertPageState extends State<ConvertPage> {
   @override
   void initState() {
     super.initState();
+    var now = new DateTime.now();
+    var formatter = new DateFormat('yMd');
+    formattedDate = formatter.format(now);
     futureRate =
         API.fetchRate(httpClient, widget.convertFrom, widget.convertTo);
     userBalance = SQL.fetchBalance(widget.convertFrom);
@@ -91,10 +96,10 @@ class _ConvertPageState extends State<ConvertPage> {
                               String transaction =
                                   'SELECT * FROM test.wallet where account_username = "$accUser" AND currency = "${widget.convertTo}"';
                               String insertTransaction1 =
-                                  "INSERT INTO test.transactions (account_username, description, amount, date) VALUES ('$accUser','${widget.convertFrom} -', '$userInput', '1/1/2021')";
+                                  "INSERT INTO test.transactions (account_username, description, amount, date, currency) VALUES ('$accUser','Transfer to ${widget.convertTo}', '-$userInput', '$formattedDate','${widget.convertFrom}')";
                               String insertTransaction2 =
-                                  "INSERT INTO test.transactions (account_username, description, amount, date) VALUES ('$accUser','${widget.convertTo} +', '$answer', '1/1/2021')";
-                              
+                                  "INSERT INTO test.transactions (account_username, description, amount, date,currency) VALUES ('$accUser','Transfer from ${widget.convertFrom}', '+$answer', '$formattedDate', '${widget.convertTo}')";
+
                               conn.query(transaction).then((results) {
                                 for (var row in results) {
                                   {
@@ -110,6 +115,8 @@ class _ConvertPageState extends State<ConvertPage> {
                                       "INSERT INTO test.wallet (account_username, currency, balance) VALUES ('$accUser','${widget.convertTo}', '$answer')";
                                   conn.query(insert);
                                   conn.query(updateDb);
+                                  conn.query(insertTransaction1);
+                                  conn.query(insertTransaction2);
                                 }
                                 conn.close();
                                 navigateToNavigationPage();
