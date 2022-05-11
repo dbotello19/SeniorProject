@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:senior_project/AESencryption.dart';
 import 'NavigationScreen.dart';
 import 'package:senior_project/models/mysql.dart';
 import 'package:senior_project/models/dbinfo.dart';
@@ -11,7 +12,9 @@ class TransferScreen extends StatefulWidget {
 }
 
 class _TransferScreen extends State<TransferScreen> {
+
   String formattedDate = '';
+
 
   navigateToNavigationPage() {
     Navigator.pushReplacement(
@@ -30,11 +33,15 @@ class _TransferScreen extends State<TransferScreen> {
   var db = new Mysql();
 
   void _transfer() {
+
     var now = new DateTime.now();
     var formatter = new DateFormat('yMd');
     formattedDate = formatter.format(now);
+
     var moneyto = accountto.text;
+    moneyto = MyEncryptionDecryption.encryptAES(moneyto);
     var moneyfrom = accountfrom.text;
+    moneyfrom = MyEncryptionDecryption.encryptAES(moneyfrom);
     var money = amount.text;
     var username = "";
     var username2 = "";
@@ -102,6 +109,7 @@ class _TransferScreen extends State<TransferScreen> {
             'UPDATE test.wallet SET balance = balance + $money WHERE account_username = "$moneyto" AND currency = "USD"';
         String update2 =
             'UPDATE test.wallet SET balance = balance - $money WHERE account_username = "$moneyfrom" AND currency = "USD"';
+
         String insertTransaction1 =
             "INSERT INTO test.transactions (account_username, description, amount, date, currency) VALUES ('$moneyto','Transfer to ${moneyfrom}', '-$money', '$formattedDate','USD')";
         String insertTransaction2 =
@@ -144,7 +152,9 @@ class _TransferScreen extends State<TransferScreen> {
                 Padding(padding: EdgeInsets.all(35)),
                 TextField(
                     controller: amount,
-                    decoration: InputDecoration(hintText: 'Amount')),
+
+                    decoration: InputDecoration(hintText: 'Amount in USD')),
+
                 Padding(padding: EdgeInsets.all(35)),
                 SizedBox(
                     width: 160,
