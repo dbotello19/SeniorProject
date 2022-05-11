@@ -15,7 +15,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   accountinfo acc = accountinfo();
-
   bool hideUsername = true;
   bool hidePassword = true;
   TextEditingController username = TextEditingController();

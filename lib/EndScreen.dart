@@ -21,11 +21,6 @@ class _EndScreenState extends State<EndScreen> {
   }
 
   navigateToDeviceScreen() {
-    dbtransaction.clear();
-    accId = -1;
-    accName = "";
-    accUser = "";
-    accBalance = -1;
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => LoginPage()));
   }

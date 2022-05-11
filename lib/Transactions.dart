@@ -79,7 +79,7 @@ class _Transactions extends State<Transactions> {
                                             int walletNumInt =
                                                 int.parse(walletNumString);
                                             if (snapshot.hasData) {
-                                              if (walletList?[0][0] == 0)
+                                              if (walletList[0][0] == 0)
                                                 return Text(
                                                     "No Transactions Found");
                                               else

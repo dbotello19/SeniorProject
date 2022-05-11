@@ -26,7 +26,17 @@ class _NavigationScreen extends State<NavigationScreen> {
       body: screens[currentIndex],
       bottomNavigationBar: new BottomNavigationBar(
         currentIndex: currentIndex,
-        onTap: (index) => setState(() => currentIndex = index),
+        onTap: (index) => setState(() {
+          if (index == 3) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) => EndScreen(),
+              ),
+            );
+          } else {
+            currentIndex = index;
+          }
+        }),
         backgroundColor: Colors.green,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
