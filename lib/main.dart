@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:senior_project/AccountScreen.dart';
 import 'package:senior_project/ConvertPage.dart';
+import 'package:senior_project/DepositScreen.dart';
 import 'package:senior_project/NewAccountPage.dart';
 import 'package:senior_project/SelectCurrencyPage.dart';
 import 'package:senior_project/models/AccountInfo.dart';
 import 'package:senior_project/models/mysql.dart';
 import 'package:senior_project/models/Accountinfo.dart';
 import 'Login_Page.dart';
+import 'SplashScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,7 +33,9 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: AccountScreen(),
+
+      home: DepositScreen(),
+
     );
   }
 }

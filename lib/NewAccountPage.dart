@@ -23,21 +23,20 @@ class _NewAccountPage extends State<NewAccountPage> {
       TextEditingController();
   var db = new Mysql();
   var encryptedaccountUser = "";
-
-  //accountinfo _account = accountinfo();
+  var name, lastname, ssn, email, accountUser, password, actualname;
 
   void _insertDb() {
-    var name = firstNameEditingController.text;
+    name = firstNameEditingController.text;
     name = MyEncryptionDecryption.encryptAES(name);
-    var lastname = lastnameEditingController.text;
+    lastname = lastnameEditingController.text;
     lastname = MyEncryptionDecryption.encryptAES(lastname);
-    var ssn = ssnEditingController.text;
+    ssn = ssnEditingController.text;
     ssn = MyEncryptionDecryption.encryptAES(ssn);
-    var email = emailEditingController.text;
+    email = emailEditingController.text;
     email = MyEncryptionDecryption.encryptAES(email);
-    var accountUser = accountUsernameEditingController.text;
+    accountUser = accountUsernameEditingController.text;
     accountUser = MyEncryptionDecryption.encryptAES(accountUser);
-    var password = passwordEditingController.text;
+    password = passwordEditingController.text;
     password = MyEncryptionDecryption.encryptAES(password);
     //compare
     //encript
@@ -52,18 +51,36 @@ class _NewAccountPage extends State<NewAccountPage> {
           }
         }
         if ('$encryptedaccountUser' == "") {
-          accName = name;
+          //accName = name;
           accBalance = 0;
           String insert =
-              "INSERT INTO test.database (first_name, last_name,ssn,email,account_username, account_password,balance) VALUES ('$name','$lastname', '$ssn', '$email', '$accountUser', '$password', 0)";
+              "INSERT INTO test.database (first_name, last_name,ssn,email,account_username, account_password) VALUES ('$name','$lastname', '$ssn', '$email', '$accountUser', '$password')";
+          String updateWallet =
+              "INSERT INTO test.wallet (account_username, currency, balance) VALUES ('$accountUser', 'USD', '0')";
           conn.query(insert);
+          conn.query(updateWallet);
           conn.close();
+          navigateToLoginPage();
         } else {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => LoginPage()));
+          showDialog<String>(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                    title: Text("Error"),
+                    content: Text("Incorrect Information"),
+                    actions: <Widget>[
+                      TextButton(
+                          child: Text("Ok"),
+                          onPressed: () => Navigator.pop(context, 'Ok')),
+                    ],
+                  ));
         }
       });
     });
+  }
+
+  navigateToLoginPage() {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => LoginPage()));
   }
 
   @override
@@ -77,7 +94,7 @@ class _NewAccountPage extends State<NewAccountPage> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-          prefixIcon: Icon(Icons.mail),
+          prefixIcon: Icon(Icons.person),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: "First Name",
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
@@ -92,7 +109,7 @@ class _NewAccountPage extends State<NewAccountPage> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-          prefixIcon: Icon(Icons.mail),
+          prefixIcon: Icon(Icons.person),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: "Last Name",
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
@@ -107,7 +124,7 @@ class _NewAccountPage extends State<NewAccountPage> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-          prefixIcon: Icon(Icons.mail),
+          prefixIcon: Icon(Icons.email),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: "Email",
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
@@ -122,7 +139,7 @@ class _NewAccountPage extends State<NewAccountPage> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-          prefixIcon: Icon(Icons.mail),
+          prefixIcon: Icon(Icons.person),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: "SSN",
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
@@ -136,7 +153,7 @@ class _NewAccountPage extends State<NewAccountPage> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-          prefixIcon: Icon(Icons.mail),
+          prefixIcon: Icon(Icons.person),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: "Username",
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
@@ -151,7 +168,7 @@ class _NewAccountPage extends State<NewAccountPage> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-          prefixIcon: Icon(Icons.mail),
+          prefixIcon: Icon(Icons.vpn_key),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: "Password",
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
@@ -166,7 +183,7 @@ class _NewAccountPage extends State<NewAccountPage> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-          prefixIcon: Icon(Icons.mail),
+          prefixIcon: Icon(Icons.vpn_key),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: "Confirm Password",
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
@@ -175,6 +192,11 @@ class _NewAccountPage extends State<NewAccountPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              navigateToLoginPage();
+            }),
         title: Text(
           'Dollaire',
           textAlign: TextAlign.center,
@@ -196,7 +218,16 @@ class _NewAccountPage extends State<NewAccountPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  SizedBox(height: 200, child: Icon(Icons.mail)),
+                  SizedBox(
+                      height: 200,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage("lib/image/logo.png"),
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      )),
                   SizedBox(height: 45),
                   firstname,
                   SizedBox(height: 45),

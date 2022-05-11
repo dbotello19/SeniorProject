@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import './utils/API.dart';
 import './globals.dart';
 import './ConvertPage.dart';
+import 'NavigationScreen.dart';
 
 class SelectCurrencyPage extends StatefulWidget {
   @override
@@ -9,6 +11,10 @@ class SelectCurrencyPage extends StatefulWidget {
 }
 
 class _SelectCurrencyPageState extends State<SelectCurrencyPage> {
+
+  navigateToNavigationPage() {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => NavigationScreen()));}
   String dropdownValueFrom = 'USD';
   String dropdownValueTo = 'EUR';
   @override
@@ -16,6 +22,10 @@ class _SelectCurrencyPageState extends State<SelectCurrencyPage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.green,
+           leading: IconButton(icon: Icon(Icons.arrow_back),
+        onPressed: (){
+          navigateToNavigationPage();
+        }),
           title: Text(
             'Dollaire',
             textAlign: TextAlign.center,

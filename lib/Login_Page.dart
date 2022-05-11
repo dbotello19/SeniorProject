@@ -46,20 +46,54 @@ class _LoginPageState extends State<LoginPage> {
         for (var row in results) {
           {
             encryptedpassword = row[6];
-            accId = row[0];
+            accUser = row[5];
+            
+            //accUser = MyEncryptionDecryption.decryptAES(accUser);
+
             accName = row[1];
-            //accName = MyEncryptionDecryption.decryptAES(accName);
-            accBalance = row[9];
+            accName = MyEncryptionDecryption.decryptAES(accName);
           }
         }
-        print('$encryptedpassword' + " encrypted password" + "$actualpassword");
         if ('$encryptedusername' == "") {
-          print("Error");
+          showDialog<String>(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                    title: Text("Error"),
+                    content: Text("Incorrect Information"),
+                    actions: <Widget>[
+                      TextButton(
+                          child: Text("Ok"),
+                          onPressed: () => Navigator.pop(context, 'Ok')),
+                    ],
+                  ));
         } else if ('$actualpassword' != '$encryptedpassword') {
-          print("Error");
+          showDialog<String>(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                    title: Text("Error"),
+                    content: Text("Incorrect Information"),
+                    actions: <Widget>[
+                      TextButton(
+                          child: Text("Ok"),
+                          onPressed: () => Navigator.pop(context, 'Ok')),
+                    ],
+                  ));
         } else {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => NavigationScreen()));
+        }
+        conn.close();
+      });
+    });
+    //get transactions
+    db.getConnection().then((conn) {
+      String transaction =
+          'SELECT * FROM test.transactions where account_username = "$encryptedusername"';
+      conn.query(transaction).then((results) {
+        for (var row in results) {
+          {
+            dbtransaction.add([row[1], row[2].toString()]);
+          }
         }
         conn.close();
       });
@@ -71,6 +105,10 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.green,
+          leading: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset("lib/image/logo.png"),
+          ),
           title: Text(
             'Dollaire',
             textAlign: TextAlign.center,
