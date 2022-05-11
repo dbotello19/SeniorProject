@@ -24,8 +24,6 @@ class _DepositScreen extends State<DepositScreen>{
     var money = amount.text;
     db.getConnection().then((conn) {
 
-      //code here
-
       String update = 'UPDATE test.wallet SET balance = balance + $money WHERE account_username = "$accUser" AND currency = "USD"';
       conn.query(update);
       conn.close();
@@ -43,7 +41,7 @@ class _DepositScreen extends State<DepositScreen>{
         }),
     ),
     body: Padding(
-      
+     
       padding: const EdgeInsets.all(8.0),
       child: Column(
         
@@ -74,6 +72,7 @@ class _DepositScreen extends State<DepositScreen>{
               onPressed: _deposit,
             )              
             ),
+
 
         ],
       ),

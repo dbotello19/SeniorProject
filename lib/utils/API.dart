@@ -43,6 +43,61 @@ class SQL {
     }
   }
 
+
+  static Future<List<List<dynamic>>> fetchTransactions() async {
+    var db = new Mysql();
+    late List<List<dynamic>> transactions = [];
+    await db.getConnection().then((conn) async {
+      String retrieve =
+          'SELECT * FROM test.transactions where account_username = "$accUser";';
+      await conn.query(retrieve).then((results) {
+        for (var row in results) {
+          transactions.add(row);
+        }
+      });
+    });
+    if (transactions.isEmpty) {
+      throw Exception('SQL request failed');
+    } else {
+      return transactions;
+    }
+  }
+
+  static Future<List<List<dynamic>>> fetchCurrencyTransactions(
+      String currency) async {
+    var db = new Mysql();
+    late List<List<dynamic>> transactions = [];
+    await db.getConnection().then((conn) async {
+      String retrieve =
+          'SELECT * FROM test.transactions where account_username = "$accUser" AND currency = "$currency"';
+      await conn.query(retrieve).then((results) {
+        for (var row in results) {
+          transactions.add(row);
+        }
+        ;
+      });
+    });
+    if (transactions.isEmpty) {
+      throw Exception('SQL request failed');
+    } else {
+      return transactions;
+    }
+  }
+
+  static Future<num> fetchNumT() async {
+    List<List<dynamic>> wallets = await fetchCurrencyTransactions(currency);
+
+    int i = 0;
+    while (true) {
+      try {
+        wallets[i];
+      } catch (RangeError) {
+        break;
+      }
+      i++;
+    }
+    return i;
+  }
   static Future<num> fetchNum() async {
     List<List<dynamic>> wallets = await fetchWallets();
 

@@ -30,6 +30,7 @@ class _BalanceScreen extends State<BalanceScreen>{
         onPressed: (){
           navigateToNavigationScreen();}
     )),
+
     body: Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

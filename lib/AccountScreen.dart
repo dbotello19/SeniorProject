@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:senior_project/AESencryption.dart';
 import 'package:senior_project/models/mysql.dart';
 import 'package:senior_project/Login_Page.dart';
+import 'package:senior_project/Transactions.dart';
 import './utils/API.dart';
 import 'package:senior_project/models/AccountInfo.dart';
 import 'package:senior_project/models/mysql.dart';
@@ -17,46 +18,17 @@ class AccountScreen extends StatefulWidget {
   _AccountScreen createState() => _AccountScreen();
 }
 
-List<List<dynamic>> transactions = [
-  ["Gas", "25.00"],
-  ["Steam", " 10.00"],
-  ["Discord", " 5.00"],
-  ["Fortnite", " 10.00"],
-  ["Gas", " 25.00"],
-];
-
-var db = Mysql();
-
-void extractDB()
-{
-  String retrieve =
-            'SELECT * FROM test.transactions where account_username = "$accName"';
-  db.getConnection().then((conn) => {
-
-      conn.query(retrieve).then((results) {
-          for (var row in results) {
-            {
-            var desc = MyEncryptionDecryption.encrypter.decrypt(row[1]);
-            var price = MyEncryptionDecryption.encrypter.decrypt(row[2]);
-
-            transactions.insert( transactions.length + 1, [desc,price]);            
-            }
-  }
-  })
-
-
-  });
-}
-
 
 class _AccountScreen extends State<AccountScreen> {
   late Future<List<List<dynamic>>> wallets;
   late Future<num> walletNum;
+  late Future<List<List<dynamic>>> transactions;
+
   @override
   void initState() {
     wallets = SQL.fetchWallets();
     walletNum = SQL.fetchNum();
-    extractDB();
+    transactions = SQL.fetchTransactions();
     super.initState();
   }
 
@@ -81,7 +53,7 @@ class _AccountScreen extends State<AccountScreen> {
       ),
       backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.all(30.0),
+        padding: const EdgeInsets.all(25.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -92,7 +64,7 @@ class _AccountScreen extends State<AccountScreen> {
                     fontWeight: FontWeight.w400,
                     fontSize: 20,
                     color: Color(0xff4C748B))),
-            Padding(padding: const EdgeInsets.all(20.0)),
+            Padding(padding: const EdgeInsets.all(10.0)),
             Container(
                 child: FutureBuilder<List<List<dynamic>>>(
                     future: wallets,
@@ -118,11 +90,17 @@ class _AccountScreen extends State<AccountScreen> {
                                                 15, 5, 15, 0),
                                             child: OutlinedButton(
                                               onPressed: () => {
+
+                                                currency =
+                                                    "${walletList![i][1]}",
+
                                                 Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
-                                                            LoginPage()))
+
+                                                            Transactions()))
+
                                               },
                                               child: Stack(
                                                   alignment:
@@ -189,42 +167,7 @@ class _AccountScreen extends State<AccountScreen> {
                     fontWeight: FontWeight.w400,
                     fontSize: 20,
                     color: Color(0xff4C748B))),
-            Container(
-              child: Expanded(
-                  child: ListView.separated(
-                shrinkWrap: true,
-                padding: EdgeInsets.all(0),
-                itemBuilder: (context, i) {
-                  return ListTile(
-                      dense: true,
-                      visualDensity: VisualDensity(vertical: -2.0),
-                      title: Text(
-                        dbtransaction[i][0],
-                        style: TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.w400,
-                            fontSize: 14,
-                            color: Color(0xff4C748B)),
-                      ),
-                      trailing: Text(
-                        dbtransaction[i][1],
-                        style: TextStyle(
-                            fontFamily: 'Montserrat',
-                            fontWeight: FontWeight.w400,
-                            fontSize: 14,
-                            color: Color(0xff4C748B)),
-                      ));
-                },
-                separatorBuilder: (context, i) {
-                  return Divider(
-                    color: Color(0xff4C748B),
-                    thickness: 1.0,
-                    height: 0,
-                  );
-                },
-                itemCount: dbtransaction.length,
-              )),
-            )
+
           ],
         ),
       ),

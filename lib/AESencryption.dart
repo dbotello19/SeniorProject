@@ -10,14 +10,9 @@ class MyEncryptionDecryption {
   static final encrypter = encrypt.Encrypter(encrypt.AES(key));
   static encryptAES(text) {
     final encrypted = encrypter.encrypt(text, iv: iv);
-
-
-    print(encrypted.bytes);
-    print(encrypted.base16);
-    print(encrypted.base64);
     return encrypted.base64;
-
   }
+
 
   static String decryptAES(String base64Text) {
   String decrypted = encrypter.decrypt(Encrypted.fromBase64(base64Text), iv: iv);

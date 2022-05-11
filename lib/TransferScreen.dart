@@ -108,29 +108,32 @@ class _TransferScreen extends State<TransferScreen>{
         }),
     ),
     body: Padding(
+
       padding: const EdgeInsets.all(50.0),
       child: SingleChildScrollView(
       child: Column(
       
         children: [
           Padding(padding: EdgeInsets.all(35)),
+
           TextField(
               controller: accountfrom,
               decoration: InputDecoration(
                 hintText: 'From Account'
               ),
             ),
+
             Padding(padding: EdgeInsets.all(30)),
              TextField(
+
               controller: accountto,
               decoration: InputDecoration(
                 hintText: 'To Account'
               ),
-            
-
             ),
             Padding(padding: EdgeInsets.all(35)),
             
+
             TextField(
               controller: amount,
               decoration: InputDecoration(
@@ -148,9 +151,9 @@ class _TransferScreen extends State<TransferScreen>{
               onPressed: _transfer,
             )             
             ),
-
         ],
       ),),
+
     )
    );
   }

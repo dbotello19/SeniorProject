@@ -47,9 +47,6 @@ class _LoginPageState extends State<LoginPage> {
           {
             encryptedpassword = row[6];
             accUser = row[5];
-            
-            //accUser = MyEncryptionDecryption.decryptAES(accUser);
-
             accName = row[1];
             accName = MyEncryptionDecryption.decryptAES(accName);
           }
