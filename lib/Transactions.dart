@@ -98,7 +98,7 @@ class _Transactions extends State<Transactions> {
                                                             alignment: Alignment
                                                                 .centerLeft,
                                                             child: Text(
-                                                                "${walletList[i][1]} Balance: ",
+                                                                "${walletList[i][1]} : ",
                                                                 style: TextStyle(
                                                                     fontFamily:
                                                                         "Montserrat",

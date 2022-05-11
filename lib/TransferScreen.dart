@@ -12,9 +12,7 @@ class TransferScreen extends StatefulWidget {
 }
 
 class _TransferScreen extends State<TransferScreen> {
-
   String formattedDate = '';
-
 
   navigateToNavigationPage() {
     Navigator.pushReplacement(
@@ -33,14 +31,15 @@ class _TransferScreen extends State<TransferScreen> {
   var db = new Mysql();
 
   void _transfer() {
-
     var now = new DateTime.now();
     var formatter = new DateFormat('yMd');
     formattedDate = formatter.format(now);
 
     var moneyto = accountto.text;
+    var moneyTo = moneyto;
     moneyto = MyEncryptionDecryption.encryptAES(moneyto);
     var moneyfrom = accountfrom.text;
+    var moneyFrom = moneyfrom;
     moneyfrom = MyEncryptionDecryption.encryptAES(moneyfrom);
     var money = amount.text;
     var username = "";
@@ -111,12 +110,14 @@ class _TransferScreen extends State<TransferScreen> {
             'UPDATE test.wallet SET balance = balance - $money WHERE account_username = "$moneyfrom" AND currency = "USD"';
 
         String insertTransaction1 =
-            "INSERT INTO test.transactions (account_username, description, amount, date, currency) VALUES ('$moneyto','Transfer to ${moneyfrom}', '-$money', '$formattedDate','USD')";
+            "INSERT INTO test.transactions (account_username, description, amount, date, currency) VALUES ('$moneyfrom','Transfer to ${moneyFrom}', '-$money', '$formattedDate','USD')";
         String insertTransaction2 =
-            "INSERT INTO test.transactions (account_username, description, amount, date,currency) VALUES ('$moneyfrom','Transfer from ${moneyto}', '+$money', '$formattedDate', 'USD')";
+            "INSERT INTO test.transactions (account_username, description, amount, date,currency) VALUES ('$moneyto','Transfer from ${moneyTo}', '+$money', '$formattedDate', 'USD')";
 
         conn.query(update);
         conn.query(update2);
+        conn.query(insertTransaction1);
+        conn.query(insertTransaction2);
         conn.close();
         navigateToNavigationPage();
       });
@@ -152,9 +153,7 @@ class _TransferScreen extends State<TransferScreen> {
                 Padding(padding: EdgeInsets.all(35)),
                 TextField(
                     controller: amount,
-
                     decoration: InputDecoration(hintText: 'Amount in USD')),
-
                 Padding(padding: EdgeInsets.all(35)),
                 SizedBox(
                     width: 160,
