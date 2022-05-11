@@ -110,9 +110,9 @@ class _TransferScreen extends State<TransferScreen> {
             'UPDATE test.wallet SET balance = balance - $money WHERE account_username = "$moneyfrom" AND currency = "USD"';
 
         String insertTransaction1 =
-            "INSERT INTO test.transactions (account_username, description, amount, date, currency) VALUES ('$moneyfrom','Transfer to ${moneyFrom}', '-$money', '$formattedDate','USD')";
+            "INSERT INTO test.transactions (account_username, description, amount, date, currency) VALUES ('$moneyfrom','Transfer to ${moneyTo}', '-$money', '$formattedDate','USD')";
         String insertTransaction2 =
-            "INSERT INTO test.transactions (account_username, description, amount, date,currency) VALUES ('$moneyto','Transfer from ${moneyTo}', '+$money', '$formattedDate', 'USD')";
+            "INSERT INTO test.transactions (account_username, description, amount, date,currency) VALUES ('$moneyto','Transfer from ${moneyFrom}', '+$money', '$formattedDate', 'USD')";
 
         conn.query(update);
         conn.query(update2);
