@@ -16,10 +16,19 @@ class _Transactions extends State<Transactions> {
   late Future<List<List<dynamic>>> wallets;
   late Future<num> walletNum;
   late Future<List<List<dynamic>>> transactions;
+  var amount;
+  bool _all = false;
   @override
   void initState() {
-    transactions = SQL.fetchCurrencyTransactions(currency);
-    walletNum = SQL.fetchNumT();
+    if (currency == '') {
+      _all = true;
+      transactions = SQL.fetchTransactions();
+      walletNum = SQL.fetchNumT(true);
+    } else {
+      transactions = SQL.fetchCurrencyTransactions(currency);
+      walletNum = SQL.fetchNumT(false);
+    }
+
     super.initState();
   }
 
@@ -28,10 +37,6 @@ class _Transactions extends State<Transactions> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.asset("lib/image/logo.png"),
-        ),
         title: Text(
           'Dollaire',
           textAlign: TextAlign.center,
@@ -49,7 +54,8 @@ class _Transactions extends State<Transactions> {
           children: <Widget>[
             Align(
                 alignment: Alignment.topCenter,
-                child: Text('Transactions for $currency',
+                child: Text(
+                    _all ? 'All Transactions' : 'Transactions for $currency',
                     textAlign: TextAlign.left,
                     style: TextStyle(
                         fontFamily: 'Montserrat',
@@ -82,7 +88,7 @@ class _Transactions extends State<Transactions> {
                                               if (walletList[0][0] == 0)
                                                 return Text(
                                                     "No Transactions Found");
-                                              else
+                                              else {
                                                 return Column(children: [
                                                   for (int i = 0;
                                                       i < walletNumInt;
@@ -98,7 +104,7 @@ class _Transactions extends State<Transactions> {
                                                               .centerRight,
                                                           children: [
                                                             Text(
-                                                                "${walletList![i][2]}",
+                                                                "${walletList[i][2].toStringAsFixed(2)} ${walletList[i][5]}",
                                                                 style: TextStyle(
                                                                     fontFamily:
                                                                         "Montserrat",
@@ -146,6 +152,7 @@ class _Transactions extends State<Transactions> {
                                                     padding: EdgeInsets.all(5),
                                                   )
                                                 ]);
+                                              }
                                             } else {
                                               return Text("${snapshot.error}");
                                             }

@@ -79,10 +79,10 @@ class _TransferScreen extends State<TransferScreen> {
       conn.query(retrieve).then((results) {
         for (var row in results) {
           {
-            username = row[0];
+            username2 = row[0];
           }
         }
-        if ('$username' == "") {
+        if ('$username2' == "") {
           showDialog<String>(
               context: context,
               builder: (BuildContext context) => AlertDialog(
